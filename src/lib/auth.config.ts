@@ -130,14 +130,16 @@ export const authConfig = {
         token.paymentFailedAt = existingUser.payment_failed_at;
         token.subscriptionCancelledAt = existingUser.subscription_cancelled_at;
       } else {
-        // New user — create row with plan='none'
+        // New user — grant 3-day free trial with plan='starter'
+        const trialEndDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString();
         const { data: newUser, error: insertError } = await supabase
           .from('users')
           .insert({
             email,
             name: token.name ?? null,
             avatar_url: token.picture ?? null,
-            plan: 'none',
+            plan: 'starter',
+            trial_ends_at: trialEndDate,
           })
           .select('id, plan, trial_ends_at, account_flagged, payment_failed_at, subscription_cancelled_at')
           .single();
