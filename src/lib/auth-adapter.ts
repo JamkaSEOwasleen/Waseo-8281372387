@@ -94,12 +94,38 @@ export function WasafSEOAdapter(): Adapter {
       };
     },
 
-    // ─── Unimplemented methods ─────────────────────────────────────────────
-    // These are required by the Adapter interface but not used in our
-    // JWT-strategy setup. They throw descriptive errors if called.
+    /**
+     * Creates a new user in the Supabase users table.
+     * Called by Auth.js v5 when an OAuth or Email provider sign-in
+     * is initiated for an email that doesn't exist in the database yet.
+     *
+     * Uses the admin client (service role key) which bypasses RLS,
+     * so no INSERT policy is needed on the users table.
+     */
+    async createUser(user: Omit<AdapterUser, 'id'>): Promise<AdapterUser> {
+      const { data, error } = await supabase
+        .from('users')
+        .insert({
+          email: user.email,
+          name: user.name ?? null,
+          avatar_url: user.image ?? null,
+          plan: 'none',
+        })
+        .select('id, email, name, avatar_url')
+        .single();
 
-    async createUser(): Promise<AdapterUser> {
-      throw new Error('createUser is not implemented — user creation happens in JWT callback');
+      if (error || !data) {
+        console.error('Failed to create user via adapter:', error?.message);
+        throw new Error('Failed to create user');
+      }
+
+      return {
+        id: data.id,
+        email: data.email,
+        name: data.name,
+        emailVerified: null,
+        image: data.avatar_url,
+      };
     },
 
     async getUser(): Promise<AdapterUser | null> {
