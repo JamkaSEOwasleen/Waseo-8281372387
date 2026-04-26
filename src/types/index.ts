@@ -22,6 +22,11 @@ export interface User {
   payment_failed_at: string | null;
   account_flagged: boolean;
   created_at: string;
+  // PSEO referral tracking — populated via ?ref=pseo-{pillar}-{location} on login
+  pseo_referrer: string | null;
+  pseo_pillar: string | null;
+  pseo_location: string | null;
+  pseo_subtopic: string | null;
 }
 
 export interface Website {

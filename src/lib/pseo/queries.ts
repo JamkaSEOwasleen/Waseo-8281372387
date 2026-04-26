@@ -279,6 +279,29 @@ export async function countPublishedPages(): Promise<number> {
 }
 
 /**
+ * Fetches all published page URLs for sitemap generation.
+ * Returns only the url_path and last_updated fields for efficiency.
+ */
+export async function getAllPublishedPageUrls(): Promise<
+  { url_path: string; last_updated: string }[]
+> {
+  const supabase = createPSEOAdminClient();
+
+  const { data, error } = await supabase
+    .from('published_pages')
+    .select('url_path, last_updated')
+    .eq('is_published', true)
+    .order('url_path', { ascending: true });
+
+  if (error) {
+    console.error('[PSEO] getAllPublishedPageUrls error:', error.message);
+    return [];
+  }
+
+  return (data ?? []) as { url_path: string; last_updated: string }[];
+}
+
+/**
  * Returns aggregated analytics for all published PSEO pages.
  */
 export async function getPSEOStats(): Promise<PSEOAnalytics> {

@@ -5,9 +5,19 @@ import WasafSEOLogo from '@/components/logo/WasafSEOLogo';
 import { signInWithGoogle, signInWithEmail } from './actions';
 import { APP_CONFIG } from '@/lib/constants';
 
+// ─── Props ───────────────────────────────────────────────────────────────────
+
+export interface LoginFormProps {
+  /**
+   * PSEO referral parameter (format: pseo-{pillar}-{location}).
+   * Captured from the ?ref= search param in the URL.
+   */
+  refParam?: string;
+}
+
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export default function LoginForm(): React.ReactElement {
+export default function LoginForm({ refParam }: LoginFormProps): React.ReactElement {
   const [email, setEmail] = useState<string>('');
   const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
   const [isEmailLoading, setIsEmailLoading] = useState<boolean>(false);
@@ -18,12 +28,12 @@ export default function LoginForm(): React.ReactElement {
     try {
       setIsGoogleLoading(true);
       setError(null);
-      await signInWithGoogle();
+      await signInWithGoogle(refParam);
     } catch {
       setError('حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.');
       setIsGoogleLoading(false);
     }
-  }, []);
+  }, [refParam]);
 
   const handleEmailSignIn = useCallback(
     async (e: React.FormEvent): Promise<void> => {
@@ -33,14 +43,14 @@ export default function LoginForm(): React.ReactElement {
       try {
         setIsEmailLoading(true);
         setError(null);
-        await signInWithEmail(email.trim());
+        await signInWithEmail(email.trim(), refParam);
         setEmailSent(true);
       } catch {
         setError('حدث خطأ أثناء إرسال رابط تسجيل الدخول. يرجى المحاولة مرة أخرى.');
         setIsEmailLoading(false);
       }
     },
-    [email]
+    [email, refParam]
   );
 
   return (

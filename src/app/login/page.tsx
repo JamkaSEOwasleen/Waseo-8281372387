@@ -7,8 +7,13 @@ import LoginForm from './LoginForm';
  * Login page — server component.
  * If the user is already authenticated, redirects to /dashboard.
  * Otherwise renders the login card with Google OAuth and magic link options.
+ *
+ * Accepts optional `ref` search param for PSEO referral tracking.
+ * Example: /login?ref=pseo-content-writing-riyadh
  */
-export default async function LoginPage(): Promise<React.ReactElement> {
+export default async function LoginPage(props: {
+  searchParams?: Promise<{ ref?: string }>;
+}): Promise<React.ReactElement> {
   const session = await auth();
 
   // Already authenticated — redirect to dashboard
@@ -16,13 +21,17 @@ export default async function LoginPage(): Promise<React.ReactElement> {
     redirect('/dashboard');
   }
 
+  // Read PSEO referral from search params
+  const searchParams = await props.searchParams;
+  const ref = searchParams?.ref ?? undefined;
+
   return (
     <main
       className="flex min-h-screen flex-col items-center justify-center bg-surface px-4"
       dir="rtl"
     >
       <div className="w-full max-w-md">
-        <LoginForm />
+        <LoginForm refParam={ref} />
       </div>
 
       {/* Footer */}

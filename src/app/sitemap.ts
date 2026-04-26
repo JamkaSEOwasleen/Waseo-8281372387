@@ -21,5 +21,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
+    // ─── PSEO Dynamic Sitemap ────────────────────────────────────────────
+    // Dynamically generated sitemap containing all published PSEO pages.
+    // Generated on-demand — automatically includes new pages as they publish.
+    {
+      url: `${baseUrl}/pseo-sitemap.xml`,
+      lastModified: new Date(),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    },
   ];
 }

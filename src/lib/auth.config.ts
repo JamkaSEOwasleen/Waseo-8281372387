@@ -2,6 +2,7 @@ import type { NextAuthConfig } from 'next-auth';
 import Google from 'next-auth/providers/google';
 import Resend from 'next-auth/providers/resend';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { consumePSEOReferralCookie } from '@/lib/pseo/referral-cookie';
 import { WasafSEOAdapter } from '@/lib/auth-adapter';
 import type { PlanType } from '@/types';
 
@@ -145,6 +146,29 @@ export const authConfig = {
           console.error('Failed to create user during sign-in:', insertError?.message);
           return token;
         }
+
+        // ─── PSEO Referral Capture ────────────────────────────────────
+        // Read the PSEO referral cookie (set during sign-in via ?ref=pseo-...)
+        // and store it on the user row for analytics.
+        try {
+          const referral = await consumePSEOReferralCookie();
+          if (referral) {
+            const fullReferrer = `pseo-${referral.pillar}-${referral.location}`;
+            await supabase
+              .from('users')
+              .update({
+                pseo_referrer: fullReferrer,
+                pseo_pillar: referral.pillar,
+                pseo_location: referral.location,
+                pseo_subtopic: referral.subtopic,
+              })
+              .eq('id', newUser.id);
+          }
+        } catch (referralError) {
+          // Non-critical — don't block sign-in if referral tracking fails
+          console.error('Failed to capture PSEO referral:', referralError);
+        }
+        // ─── End PSEO Referral Capture ────────────────────────────────
 
         token.id = newUser.id;
         token.plan = newUser.plan as PlanType;

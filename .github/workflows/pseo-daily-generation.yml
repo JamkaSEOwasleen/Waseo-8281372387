@@ -1,0 +1,83 @@
+name: PSEO Daily Generation
+
+on:
+  schedule:
+    # 5:00 AM UTC = 8:00 AM Dubai (winter) / 9:00 AM Dubai (summer)
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Number of pages to generate (max 50)'
+        required: false
+        default: '10'
+        type: string
+      quality_threshold:
+        description: 'Minimum quality score threshold'
+        required: false
+        default: '70'
+        type: string
+
+env:
+  DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+  VERCEL_REVALIDATION_TOKEN: ${{ secrets.VERCEL_REVALIDATION_TOKEN }}
+  NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+
+jobs:
+  generate:
+    name: Generate PSEO Content
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate PSEO content batch
+        id: generate
+        run: |
+          LIMIT=${{ github.event.inputs.limit || '50' }}
+          echo "Generating ${LIMIT} PSEO pages..."
+          npx tsx scripts/pseo/generate-pseo-content.ts "${LIMIT}"
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - name: Quality check on generated pages
+        id: quality
+        run: |
+          THRESHOLD=${{ github.event.inputs.quality_threshold || '70' }}
+          echo "Running quality check with threshold: ${THRESHOLD}..."
+          npx tsx scripts/pseo/quality-check.ts 100
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - name: Revalidate new pages on Vercel
+        id: revalidate
+        run: |
+          echo "Revalidating generated pages on Vercel..."
+          npx tsx scripts/pseo/revalidate-pages.ts 50
+        env:
+          VERCEL_REVALIDATION_TOKEN: ${{ secrets.VERCEL_REVALIDATION_TOKEN }}
+          NEXT_PUBLIC_APP_URL: ${{ secrets.NEXT_PUBLIC_APP_URL }}
+
+      - name: Log generation summary
+        if: always()
+        run: |
+          echo "✅ PSEO Daily Generation Complete"
+          echo "• Timestamp: $(date -u)"
+          echo "• Generation status: ${{ steps.generate.outcome }}"
+          echo "• Quality check status: ${{ steps.quality.outcome }}"
+          echo "• Revalidation status: ${{ steps.revalidate.outcome }}"
