@@ -1,0 +1,302 @@
+[
+  {
+    "slug": "content-writing",
+    "name_ar": "كتابة المحتوى",
+    "icon_name": "pen-tool",
+    "description_ar": "خدمات كتابة المحتوى التسويقي وتحسين محركات البحث لزيادة الظهور والوصول للجمهور المستهدف",
+    "priority": "P0",
+    "tier": 0,
+    "intent_types": ["informational", "commercial", "how-to"],
+    "parent_slug": null
+  },
+  {
+    "slug": "seo-services",
+    "name_ar": "خدمات تحسين محركات البحث",
+    "icon_name": "search",
+    "description_ar": "حزمة متكاملة من خدمات تحسين محركات البحث لرفع ترتيب المواقع في نتائج البحث",
+    "priority": "P0",
+    "tier": 0,
+    "intent_types": ["commercial", "navigational"],
+    "parent_slug": null
+  },
+  {
+    "slug": "geo-aio",
+    "name_ar": "تحسين المحتوى للذكاء الاصطناعي التوليدي",
+    "icon_name": "sparkles",
+    "description_ar": "استراتيجيات تحسين المحتوى لمحركات البحث الذكية والذكاء الاصطناعي التوليدي وظهور العلامة التجارية في المقتطفات",
+    "priority": "P0",
+    "tier": 0,
+    "intent_types": ["informational", "how-to"],
+    "parent_slug": null
+  },
+  {
+    "slug": "jsonld-schema",
+    "name_ar": "ترميز البيانات المنظمة",
+    "icon_name": "code",
+    "description_ar": "إضافة ترميز JSON-LD والبيانات المنظمة لتحسين ظهور الموقع في النتائج الغنية",
+    "priority": "P1",
+    "tier": 1,
+    "intent_types": ["informational", "how-to"],
+    "parent_slug": null
+  },
+  {
+    "slug": "content-marketing",
+    "name_ar": "التسويق بالمحتوى",
+    "icon_name": "megaphone",
+    "description_ar": "استراتيجيات التسويق بالمحتوى لبناء الوعي بالعلامة التجارية وجذب العملاء المحتملين",
+    "priority": "P0",
+    "tier": 0,
+    "intent_types": ["commercial", "informational"],
+    "parent_slug": null
+  },
+  {
+    "slug": "keyword-research",
+    "name_ar": "البحث عن الكلمات المفتاحية",
+    "icon_name": "target",
+    "description_ar": "أدوات وخدمات البحث المتقدم عن الكلمات المفتاحية لتحسين استراتيجية المحتوى",
+    "priority": "P0",
+    "tier": 0,
+    "intent_types": ["informational", "commercial"],
+    "parent_slug": null
+  },
+  {
+    "slug": "ecommerce-seo",
+    "name_ar": "تحسين محركات البحث للمتاجر الإلكترونية",
+    "icon_name": "shopping-cart",
+    "description_ar": "حلول متخصصة لتحسين محركات البحث لمتاجر التجزئة الإلكترونية وزيادة المبيعات",
+    "priority": "P1",
+    "tier": 1,
+    "intent_types": ["commercial", "comparison"],
+    "parent_slug": null
+  },
+  {
+    "slug": "content-strategy",
+    "name_ar": "استراتيجية المحتوى",
+    "icon_name": "layout-dashboard",
+    "description_ar": "تخطيط وتنفيذ استراتيجيات محتوى متكاملة لتحقيق أهداف النمو والوصول للجمهور",
+    "priority": "P1",
+    "tier": 1,
+    "intent_types": ["informational", "commercial"],
+    "parent_slug": null
+  },
+  {
+    "slug": "seo-tools",
+    "name_ar": "أدوات تحسين محركات البحث",
+    "icon_name": "wrench",
+    "description_ar": "أفضل أدوات تحسين محركات البحث لتحليل المواقع ومراقبة الأداء وتحسين الترتيب",
+    "priority": "P0",
+    "tier": 0,
+    "intent_types": ["commercial", "comparison"],
+    "parent_slug": null
+  },
+  {
+    "slug": "article-writing",
+    "name_ar": "كتابة المقالات",
+    "icon_name": "file-text",
+    "description_ar": "خدمات احترافية لكتابة المقالات المحسّنة لمحركات البحث بأسلوب جذاب ومتوافق مع معايير السيو",
+    "priority": "P0",
+    "tier": 0,
+    "intent_types": ["informational", "how-to"],
+    "parent_slug": null
+  },
+  {
+    "slug": "local-seo",
+    "name_ar": "تحسين محركات البحث المحلي",
+    "icon_name": "map-pin",
+    "description_ar": "استراتيجيات تحسين الظهور في نتائج البحث المحلي وجوجل ماب للشركات والمتاجر المحلية",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "seo-services"
+  },
+  {
+    "slug": "technical-seo",
+    "name_ar": "تحسين محركات البحث التقني",
+    "icon_name": "settings",
+    "description_ar": "تحسين الجوانب التقنية للموقع مثل سرعة التحميل وهيكل الروابط وتحليل الكود",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "seo-services"
+  },
+  {
+    "slug": "link-building",
+    "name_ar": "بناء الروابط",
+    "icon_name": "link",
+    "description_ar": "خدمات بناء الروابط الخارجية عالية الجودة لتعزيز سلطة الموقع في محركات البحث",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "seo-services"
+  },
+  {
+    "slug": "seo-consulting",
+    "name_ar": "استشارات تحسين محركات البحث",
+    "icon_name": "briefcase",
+    "description_ar": "خدمات استشارية متخصصة في تحسين محركات البحث لتطوير استراتيجيات فعالة للظهور في نتائج البحث",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "seo-services"
+  },
+  {
+    "slug": "video-seo",
+    "name_ar": "تحسين محركات البحث للفيديو",
+    "icon_name": "video",
+    "description_ar": "استراتيجيات تحسين محتوى الفيديو للظهور في نتائج البحث وزيادة المشاهدات على يوتيوب",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "content-marketing"
+  },
+  {
+    "slug": "voice-search-seo",
+    "name_ar": "تحسين البحث الصوتي",
+    "icon_name": "mic",
+    "description_ar": "تحسين المحتوى للبحث الصوتي والمساعدات الذكية مثل سيري وأليكسا وجوجل أسيستنت",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "geo-aio"
+  },
+  {
+    "slug": "mobile-seo",
+    "name_ar": "تحسين محركات البحث للجوال",
+    "icon_name": "smartphone",
+    "description_ar": "تحسين تجربة المستخدم على الأجهزة المحمولة لتحسين ترتيب الموقع في نتائج البحث",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "technical-seo"
+  },
+  {
+    "slug": "international-seo",
+    "name_ar": "تحسين محركات البحث الدولي",
+    "icon_name": "globe",
+    "description_ar": "استراتيجيات تحسين محركات البحث لأسواق متعددة وبلدان مختلفة مع مراعاة الفروق اللغوية والثقافية",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "seo-services"
+  },
+  {
+    "slug": "saas-content",
+    "name_ar": "كتابة محتوى السحابة",
+    "icon_name": "cloud",
+    "description_ar": "كتابة محتوى تسويقي وتقني لتطبيقات ومنصات السحابة وشركات البرمجيات كخدمة",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "content-writing"
+  },
+  {
+    "slug": "b2b-content",
+    "name_ar": "كتابة محتوى الأعمال",
+    "icon_name": "building",
+    "description_ar": "كتابة محتوى متخصص للشركات التي تستهدف أعمالاً أخرى في قطاع B2B",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "content-writing"
+  },
+  {
+    "slug": "social-media-content",
+    "name_ar": "محتوى التواصل الاجتماعي",
+    "icon_name": "share-2",
+    "description_ar": "إنشاء محتوى متميز لمنصات التواصل الاجتماعي لزيادة التفاعل وبناء المجتمع الرقمي",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "content-marketing"
+  },
+  {
+    "slug": "seo-audit",
+    "name_ar": "تدقيق تحسين محركات البحث",
+    "icon_name": "clipboard-check",
+    "description_ar": "خدمات تدقيق شاملة للمواقع لتحديد مشاكل السيو وفرص التحسين مع تقارير تفصيلية",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "seo-services"
+  },
+  {
+    "slug": "competitor-analysis",
+    "name_ar": "تحليل المنافسين",
+    "icon_name": "eye",
+    "description_ar": "تحليل استراتيجيات المنافسين في محركات البحث لاكتشاف الفجوات وفرص التفوق",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "keyword-research"
+  },
+  {
+    "slug": "content-calendar",
+    "name_ar": "التقويم التحريري",
+    "icon_name": "calendar",
+    "description_ar": "تخطيط وإدارة التقويم التحريري للمحتوى لضمان الاتساق والانتظام في النشر",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "content-strategy"
+  },
+  {
+    "slug": "content-roi",
+    "name_ar": "قياس عائد الاستثمار للمحتوى",
+    "icon_name": "trending-up",
+    "description_ar": "قياس وتحليل عائد الاستثمار لحملات المحتوى التسويقي وتأثيره على نمو الأعمال",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "content-marketing"
+  },
+  {
+    "slug": "schema-markup",
+    "name_ar": "ترميز المخططات",
+    "icon_name": "brackets",
+    "description_ar": "إضافة ترميزات المخططات المختلفة (Article, Product, FAQ, HowTo) لتحسين النتائج الغنية",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "jsonld-schema"
+  },
+  {
+    "slug": "eeat-optimization",
+    "name_ar": "تحسين معايير E-E-A-T",
+    "icon_name": "shield-check",
+    "description_ar": "تحسين الخبرة والتجربة والسلطة والثقة في المحتوى وفق معايير جوجل لتحسين التصنيف",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "geo-aio"
+  },
+  {
+    "slug": "readability",
+    "name_ar": "تحسين قابلية القراءة",
+    "icon_name": "book-open",
+    "description_ar": "تحسين قابلية قراءة المحتوى لجعله أكثر وضوحاً وسهولة للقراء ومحركات البحث",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "content-writing"
+  },
+  {
+    "slug": "content-distribution",
+    "name_ar": "توزيع المحتوى",
+    "icon_name": "send",
+    "description_ar": "استراتيجيات توزيع المحتوى عبر القنوات المختلفة لزيادة الوصول والتفاعل مع الجمهور المستهدف",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "content-marketing"
+  },
+  {
+    "slug": "content-repurposing",
+    "name_ar": "إعادة استخدام المحتوى",
+    "icon_name": "refresh-cw",
+    "description_ar": "تحويل وإعادة استخدام المحتوى الحالي بتنسيقات متعددة لزيادة العمر الافتراضي للمحتوى والوصول لشرائح جديدة",
+    "priority": null,
+    "tier": 2,
+    "intent_types": [],
+    "parent_slug": "content-marketing"
+  }
+]
