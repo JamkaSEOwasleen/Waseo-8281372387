@@ -103,13 +103,15 @@ export function WasafSEOAdapter(): Adapter {
      * so no INSERT policy is needed on the users table.
      */
     async createUser(user: Omit<AdapterUser, 'id'>): Promise<AdapterUser> {
+      const trialEndDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString();
       const { data, error } = await supabase
         .from('users')
         .insert({
           email: user.email,
           name: user.name ?? null,
           avatar_url: user.image ?? null,
-          plan: 'none',
+          plan: 'starter',
+          trial_ends_at: trialEndDate,
         })
         .select('id, email, name, avatar_url')
         .single();
