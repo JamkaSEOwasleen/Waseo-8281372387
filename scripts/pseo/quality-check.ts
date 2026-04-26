@@ -153,7 +153,7 @@ async function runQualityCheck(): Promise<void> {
   console.log('📋 Fetching pages for quality check...');
 
   const { data: pages, error: fetchError } = await supabase
-    .from('published_pages')
+    .from('pseo_published_pages')
     .select('*')
     .is('quality_score', null)
     .order('generated_at', { ascending: false })
@@ -170,7 +170,7 @@ async function runQualityCheck(): Promise<void> {
     console.log('   No unscored pages found. Checking pages below threshold...');
 
     const { data: lowScorePages, error: lowScoreError } = await supabase
-      .from('published_pages')
+      .from('pseo_published_pages')
       .select('*')
       .lt('quality_score', QUALITY_PASS_THRESHOLD)
       .order('quality_score', { ascending: true })
@@ -228,7 +228,7 @@ async function runQualityCheck(): Promise<void> {
 
     // Update quality_score on published_pages
     await supabase
-      .from('published_pages')
+      .from('pseo_published_pages')
       .update({
         quality_score: score,
         last_updated: new Date().toISOString(),
@@ -238,7 +238,7 @@ async function runQualityCheck(): Promise<void> {
     // Also update the content_queue if there's a queue_id
     if (page.queue_id !== null) {
       await supabase
-        .from('content_queue')
+        .from('pseo_content_queue')
         .update({
           quality_score: score,
           updated_at: new Date().toISOString(),

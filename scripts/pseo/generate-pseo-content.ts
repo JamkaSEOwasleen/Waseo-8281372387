@@ -87,7 +87,7 @@ async function generatePSEOContentBatch(): Promise<void> {
   console.log('📋 Fetching next batch from queue...');
 
   const { data: queueItems, error: queueError } = await supabase
-    .rpc('get_next_batch', { p_limit: limit });
+    .rpc('pseo_get_next_batch', { p_limit: limit });
 
   if (queueError) {
     throw new Error(`Failed to fetch batch: ${queueError.message}`);
@@ -131,7 +131,7 @@ async function generatePSEOContentBatch(): Promise<void> {
   // ── Step 3: Mark items as 'generating' ──
   const queueIds = items.map((item) => item.queue_id);
   const { error: markError } = await supabase
-    .from('content_queue')
+    .from('pseo_content_queue')
     .update({ status: 'generating', updated_at: new Date().toISOString() })
     .in('id', queueIds);
 
@@ -157,12 +157,12 @@ async function generatePSEOContentBatch(): Promise<void> {
       // Fetch the location and niche data
       const [locationResult, nicheResult] = await Promise.all([
         supabase
-          .from('locations')
+          .from('pseo_locations')
           .select('*')
           .eq('slug', item.location_slug)
           .single(),
         supabase
-          .from('niches')
+          .from('pseo_niches')
           .select('*')
           .eq('slug', item.niche_slug)
           .single(),
@@ -226,7 +226,7 @@ async function generatePSEOContentBatch(): Promise<void> {
       };
 
       const { error: insertError } = await supabase
-        .from('published_pages')
+        .from('pseo_published_pages')
         .insert(pageRow);
 
       if (insertError) {
@@ -237,7 +237,7 @@ async function generatePSEOContentBatch(): Promise<void> {
       const wordCount = estimateWordCount(contentOutput);
 
       await supabase
-        .from('content_queue')
+        .from('pseo_content_queue')
         .update({
           status: 'completed',
           generated_at: new Date().toISOString(),
@@ -252,7 +252,7 @@ async function generatePSEOContentBatch(): Promise<void> {
       const generationTimeSeconds = (Date.now() - itemStartTime) / 1000;
 
       await supabase
-        .from('generation_logs')
+        .from('pseo_generation_logs')
         .insert({
           queue_id: item.queue_id,
           batch_id: batchId,
@@ -281,7 +281,7 @@ async function generatePSEOContentBatch(): Promise<void> {
 
       // Fetch current generation_attempts to increment manually
       const { data: currentAttemptsData } = await supabase
-        .from('content_queue')
+        .from('pseo_content_queue')
         .select('generation_attempts')
         .eq('id', item.queue_id)
         .single();
@@ -290,7 +290,7 @@ async function generatePSEOContentBatch(): Promise<void> {
 
       // Mark queue item as failed
       await supabase
-        .from('content_queue')
+        .from('pseo_content_queue')
         .update({
           status: 'failed',
           error_message: errorMessage.substring(0, 500),
@@ -301,7 +301,7 @@ async function generatePSEOContentBatch(): Promise<void> {
 
       // Log the failure
       await supabase
-        .from('generation_logs')
+        .from('pseo_generation_logs')
         .insert({
           queue_id: item.queue_id,
           batch_id: batchId,

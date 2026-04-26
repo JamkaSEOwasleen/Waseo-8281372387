@@ -16,7 +16,7 @@ export async function getPublishedPage(
   const supabase = createPSEOAdminClient();
 
   const { data, error } = await supabase
-    .from('published_pages')
+    .from('pseo_published_pages')
     .select('*')
     .eq('url_path', urlPath)
     .maybeSingle();
@@ -39,7 +39,7 @@ export async function getPublishedPageByQueueId(
   const supabase = createPSEOAdminClient();
 
   const { data, error } = await supabase
-    .from('published_pages')
+    .from('pseo_published_pages')
     .select('*')
     .eq('queue_id', queueId)
     .maybeSingle();
@@ -62,7 +62,7 @@ export async function getPublishedPagesByPillar(
   const supabase = createPSEOAdminClient();
 
   const { data, error } = await supabase
-    .from('published_pages')
+    .from('pseo_published_pages')
     .select('*')
     .ilike('url_path', `${pillarSlug}/%`)
     .eq('is_published', true)
@@ -85,7 +85,7 @@ export async function getPublishedPagesByLocation(
   const supabase = createPSEOAdminClient();
 
   const { data, error } = await supabase
-    .from('published_pages')
+    .from('pseo_published_pages')
     .select('*')
     .ilike('url_path', `%/${locationSlug}%`)
     .eq('is_published', true)
@@ -110,7 +110,7 @@ export async function getRelatedPages(
   const supabase = createPSEOAdminClient();
 
   const { data, error } = await supabase
-    .from('published_pages')
+    .from('pseo_published_pages')
     .select('*')
     .neq('id', pageId)
     .eq('is_published', true)
@@ -134,7 +134,7 @@ export async function getBatchForGeneration(
 ): Promise<PSEOBatchItem[]> {
   const supabase = createPSEOAdminClient();
 
-  const { data, error } = await supabase.rpc('get_next_batch', {
+  const { data, error } = await supabase.rpc('pseo_get_next_batch', {
     p_limit: limit,
   });
 
@@ -159,7 +159,7 @@ export async function insertPublishedPage(
   const supabase = createPSEOAdminClient();
 
   const { data: inserted, error } = await supabase
-    .from('published_pages')
+    .from('pseo_published_pages')
     .insert({
       queue_id: data.queue_id,
       url_path: data.url_path,
@@ -219,7 +219,7 @@ export async function updateQueueItemStatus(
   };
 
   const { error } = await supabase
-    .from('content_queue')
+    .from('pseo_content_queue')
     .update(updateData)
     .eq('id', id);
 
@@ -239,7 +239,7 @@ export async function insertGenerationLog(
 ): Promise<boolean> {
   const supabase = createPSEOAdminClient();
 
-  const { error } = await supabase.from('generation_logs').insert({
+  const { error } = await supabase.from('pseo_generation_logs').insert({
     queue_id: log.queue_id,
     batch_id: log.batch_id,
     status: log.status,
@@ -266,7 +266,7 @@ export async function countPublishedPages(): Promise<number> {
   const supabase = createPSEOAdminClient();
 
   const { count, error } = await supabase
-    .from('published_pages')
+    .from('pseo_published_pages')
     .select('*', { count: 'exact', head: true })
     .eq('is_published', true);
 
@@ -288,7 +288,7 @@ export async function getAllPublishedPageUrls(): Promise<
   const supabase = createPSEOAdminClient();
 
   const { data, error } = await supabase
-    .from('published_pages')
+    .from('pseo_published_pages')
     .select('url_path, last_updated')
     .eq('is_published', true)
     .order('url_path', { ascending: true });
@@ -308,7 +308,7 @@ export async function getPSEOStats(): Promise<PSEOAnalytics> {
   const supabase = createPSEOAdminClient();
 
   const { data: pages, error } = await supabase
-    .from('published_pages')
+    .from('pseo_published_pages')
     .select('*')
     .eq('is_published', true);
 

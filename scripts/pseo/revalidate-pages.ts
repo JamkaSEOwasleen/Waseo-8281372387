@@ -78,7 +78,7 @@ async function revalidatePages(): Promise<void> {
   console.log('📋 Fetching published pages...');
 
   let query = supabase
-    .from('published_pages')
+    .from('pseo_published_pages')
     .select('url_path')
     .eq('is_published', true)
     .order('last_updated', { ascending: false });

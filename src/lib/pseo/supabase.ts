@@ -1,7 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 
 /**
- * Creates a Supabase admin client configured for the `pseo` schema.
+ * Creates a Supabase admin client for PSEO schema queries.
+ * Uses the default `public` schema — queries target views like
+ * `pseo_published_pages`, `pseo_locations`, etc. that mirror the
+ * underlying `pseo.*` tables.
+ *
  * Uses the same SUPABASE_SERVICE_ROLE_KEY as the main app (bypasses RLS).
  *
  * @warning Server-only. Never import in client components.
@@ -15,9 +19,6 @@ export function createPSEOAdminClient() {
       auth: {
         autoRefreshToken: false,
         persistSession: false,
-      },
-      db: {
-        schema: 'pseo',
       },
     },
   );

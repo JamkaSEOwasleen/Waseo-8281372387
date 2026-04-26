@@ -95,7 +95,7 @@ async function seedNiches(): Promise<void> {
     }));
 
     const { error } = await supabase
-      .from('niches')
+      .from('pseo_niches')
       .upsert(dbRows, { onConflict: 'slug', ignoreDuplicates: false });
 
     if (error) {

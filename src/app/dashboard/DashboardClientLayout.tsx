@@ -12,6 +12,7 @@ import {
   FileText,
   Globe,
   CreditCard,
+  Receipt,
   ChevronRight,
   ExternalLink,
 } from 'lucide-react';
@@ -58,6 +59,7 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Generate Brief', href: '/dashboard/generate', icon: <Sparkles size={20} /> },
   { label: 'My Briefs', href: '/dashboard/briefs', icon: <FileText size={20} /> },
   { label: 'Websites', href: '/dashboard/websites', icon: <Globe size={20} /> },
+  { label: 'Billing', href: '/dashboard/billing', icon: <Receipt size={20} /> },
   { label: 'Account', href: '/dashboard/account', icon: <CreditCard size={20} /> },
 ];
 
@@ -424,6 +426,7 @@ function getPageTitle(pathname: string): string {
   if (pathname === '/dashboard') return 'Dashboard';
   if (pathname.startsWith('/dashboard/generate')) return 'Generate Brief';
   if (pathname.startsWith('/dashboard/briefs')) return 'My Briefs';
+  if (pathname.startsWith('/dashboard/billing')) return 'Billing';
   if (pathname.startsWith('/dashboard/websites/new')) return 'Add Website';
   if (pathname.startsWith('/dashboard/websites')) return 'Websites';
   if (pathname.startsWith('/dashboard/account')) return 'Account';

@@ -160,7 +160,7 @@ async function generateQueue(): Promise<void> {
 
   // ── Fetch locations ──
   const { data: locations, error: locError } = await supabase
-    .from('locations')
+    .from('pseo_locations')
     .select('id, name_ar, name_en, slug, priority, search_volume_estimate')
     .eq('is_active', true)
     .order('priority', { ascending: false });
@@ -178,7 +178,7 @@ async function generateQueue(): Promise<void> {
 
   // ── Fetch niches ──
   const { data: niches, error: nicheError } = await supabase
-    .from('niches')
+    .from('pseo_niches')
     .select('id, name_ar, slug, pillar_type, priority, intent_types, icon_name')
     .eq('is_active', true)
     .order('priority', { ascending: false });
@@ -293,7 +293,7 @@ async function generateQueue(): Promise<void> {
   for (let batchIndex = 0; batchIndex < batches.length; batchIndex++) {
     const batch = batches[batchIndex];
     const { error } = await supabase
-      .from('content_queue')
+      .from('pseo_content_queue')
       .upsert(batch, {
         onConflict: 'location_id, niche_id, intent, format',
         ignoreDuplicates: false,

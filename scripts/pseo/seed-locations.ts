@@ -67,7 +67,7 @@ async function seedLocations(): Promise<void> {
     }));
 
     const { error } = await supabase
-      .from('locations')
+      .from('pseo_locations')
       .upsert(dbRows, { onConflict: 'slug', ignoreDuplicates: false });
 
     if (error) {

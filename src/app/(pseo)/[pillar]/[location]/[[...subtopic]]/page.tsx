@@ -10,6 +10,26 @@ import type { PSEOPublishedPage } from '@/types/pseo';
 export const revalidate = 604800; // 7 days
 export const dynamicParams = true;
 
+// ─── Reserved Paths ───────────────────────────────────────────────────────────
+// These first-path segments belong to Next.js app routes, NOT PSEO content pages.
+// The PSEO catch-all must reject them early to prevent:
+//   a) unnecessary Supabase calls for app-internal paths
+//   b) PSEO swallowing valid dashboard/api/auth URLs when route matching is ambiguous
+
+const RESERVED_PSEO_PILLARS: ReadonlySet<string> = new Set([
+  'dashboard',
+  'api',
+  '_next',
+  'login',
+  'pricing',
+  'auth',
+  'favicon.ico',
+]);
+
+function isReservedPillar(pillar: string): boolean {
+  return RESERVED_PSEO_PILLARS.has(pillar.toLowerCase());
+}
+
 // ─── Params Type ──────────────────────────────────────────────────────────────
 
 interface PSEOPageParams {
@@ -28,6 +48,15 @@ export async function generateMetadata({
   params,
 }: PSEOPageProps): Promise<Metadata> {
   const { pillar, location, subtopic } = await params;
+
+  // Reject reserved paths early — don't call Supabase for internal routes
+  if (isReservedPillar(pillar)) {
+    return {
+      title: 'الصفحة غير موجودة | WasafSEO',
+      description: 'لم يتم العثور على الصفحة المطلوبة.',
+    };
+  }
+
   const urlPath = buildUrlPath(pillar, location, subtopic);
   const page: PSEOPublishedPage | null = await getPublishedPage(urlPath);
 
@@ -60,6 +89,12 @@ export default async function PSEOPage({
   params,
 }: PSEOPageProps): Promise<React.ReactElement> {
   const { pillar, location, subtopic } = await params;
+
+  // Reject reserved paths early — prevents PSEO from intercepting dashboard/api/auth
+  if (isReservedPillar(pillar)) {
+    notFound();
+  }
+
   const urlPath = buildUrlPath(pillar, location, subtopic);
   const page: PSEOPublishedPage | null = await getPublishedPage(urlPath);
 

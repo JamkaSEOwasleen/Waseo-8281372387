@@ -1,0 +1,57 @@
+-- ============================================
+-- WasafSEO PostgREST Schema Configuration
+-- Migration: 004_postgrest_schema_config.sql
+-- Purpose: Expose `pseo` schema data to PostgREST REST API
+-- ============================================
+--
+-- ⚠️  SUPERSEDED by migration 005_pseo_views.sql ⚠️
+--
+-- Modern Supabase manages PostgREST configuration through its
+-- infrastructure layer, not through database tables or SQL.
+-- There is no `_postgrest.config`, `pgrst.config`, or similar
+-- table available to alter via migration SQL.
+--
+-- The "Extra Search Path" setting in Supabase Dashboard → Project
+-- Settings → API was the intended solution, but this option has
+-- been removed in the latest Supabase Dashboard (2024+).
+--
+-- ============================================
+-- Solution Used Instead
+-- ============================================
+--
+-- Migration `005_pseo_views.sql` creates views in the `public`
+-- schema that mirror all pseo.* tables:
+--
+--   public.pseo_published_pages  ← pseo.published_pages
+--   public.pseo_locations        ← pseo.locations
+--   public.pseo_niches           ← pseo.niches
+--   public.pseo_content_queue    ← pseo.content_queue
+--   public.pseo_generation_logs  ← pseo.generation_logs
+--   public.pseo_keywords         ← pseo.keywords
+--   public.pseo_get_next_batch() ← pseo.get_next_batch()
+--
+-- The Supabase JS client defaults to `public` schema, so queries
+-- against these views work without any schema configuration change.
+--
+-- ============================================
+-- Original Grants (Still Needed — Run These)
+-- ============================================
+-- These grants are kept here for reference but are also handled
+-- by migration 003_pseo_schema.sql.
+--
+-- Grant USAGE on the `pseo` schema to all Supabase roles.
+-- Without these grants, the views cannot access the underlying tables.
+
+GRANT USAGE ON SCHEMA pseo TO anon;
+GRANT USAGE ON SCHEMA pseo TO authenticated;
+GRANT USAGE ON SCHEMA pseo TO service_role;
+
+-- ============================================
+-- Verification
+-- ============================================
+--
+-- After running migration 005_pseo_views.sql, verify with:
+--
+--   SELECT * FROM public.pseo_locations LIMIT 5;
+--   SELECT * FROM public.pseo_niches LIMIT 5;
+--   SELECT * FROM public.pseo_get_next_batch(5);
