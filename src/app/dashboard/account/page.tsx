@@ -19,6 +19,7 @@ import {
 import { getInitials } from '@/lib/utils';
 import type { User, UsageState } from '@/types';
 import { AccountClient } from './AccountClient';
+import { AccountActions } from './AccountActions';
 
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
@@ -240,33 +241,12 @@ export default async function AccountPage(): Promise<React.ReactElement> {
 
               {/* Action buttons */}
               <div className="flex flex-col gap-2 lg:flex-row">
-                {hasSubscription && (
-                  <button
-                    id="manage-billing-btn"
-                    className="flex h-11 items-center justify-center rounded-lg border border-surface-border bg-surface-card px-4 text-sm font-medium text-text-primary transition-colors hover:bg-white/5 lg:h-10"
-                    onClick={async () => {
-                      try {
-                        const res = await fetch('/api/billing/portal');
-                        const json = await res.json();
-                        if (json.data?.url) {
-                          window.location.href = json.data.url;
-                        }
-                      } catch {
-                        // handled by the anchor fallback below
-                      }
-                    }}
-                  >
-                    إدارة الفوترة
-                  </button>
-                )}
-                {user.plan !== 'agency' && (
-                  <a
-                    href="/pricing"
-                    className="flex h-11 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-white transition-colors hover:bg-primary/90 lg:h-10"
-                  >
-                    ترقية الخطة
-                  </a>
-                )}
+                <AccountActions
+                  hasSubscription={hasSubscription}
+                  userEmail={user.email}
+                  userPlan={user.plan}
+                  mode="billing"
+                />
               </div>
             </div>
           </div>
@@ -380,181 +360,13 @@ export default async function AccountPage(): Promise<React.ReactElement> {
       </div>
 
       {/* ── Danger Zone ───────────────────────────────────────────────────── */}
-      <div>
-        <div className="mb-4 flex items-center gap-3">
-          <h2 className="text-xl font-semibold text-error lg:text-2xl">
-            منطقة الخطر
-          </h2>
-          <div className="h-px flex-1 bg-error/20" />
-        </div>
-
-        <div className="rounded-xl border border-error/20 bg-error/5 p-4 lg:p-6">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <h3 className="text-base font-semibold text-text-primary lg:text-lg">
-                حذف الحساب
-              </h3>
-              <p className="mt-1 text-sm text-text-muted">
-                سيؤدي حذف حسابك إلى إزالة جميع الموجزات والمواقع الإلكترونية
-                والبيانات المرتبطة بشكل دائم. لا يمكن التراجع عن هذا الإجراء.
-              </p>
-            </div>
-            <button
-              id="delete-account-btn"
-              className="flex h-11 shrink-0 items-center justify-center rounded-lg border border-error/40 px-4 text-sm font-medium text-error transition-colors hover:bg-error/10 lg:h-10"
-              onClick={(): void => {
-                const dialog = document.getElementById(
-                  'delete-account-dialog'
-                );
-                if (dialog) dialog.style.display = 'flex';
-              }}
-            >
-              حذف الحساب
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Delete Account Dialog ─────────────────────────────────────────── */}
-      <DeleteAccountDialog userEmail={user.email} />
+      <AccountActions
+        hasSubscription={hasSubscription}
+        userEmail={user.email}
+        userPlan={user.plan}
+        mode="danger"
+      />
     </div>
   );
 }
 
-// ─── Delete Account Dialog ─────────────────────────────────────────────────
-
-function DeleteAccountDialog({
-  userEmail,
-}: {
-  userEmail: string;
-}): React.ReactElement {
-  return (
-    <div
-      id="delete-account-dialog"
-      className="fixed inset-0 z-50 hidden items-center justify-center bg-black/60"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          const dialog = document.getElementById('delete-account-dialog');
-          if (dialog) dialog.style.display = 'none';
-        }
-      }}
-    >
-      <div
-        className="mx-4 w-full max-w-md rounded-2xl border border-surface-border bg-surface-card p-6 shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="mb-6 text-center">
-          <div className="mb-3 text-4xl">⚠️</div>
-          <h3 className="text-lg font-bold text-text-primary">
-            تأكيد حذف الحساب
-          </h3>
-          <p className="mt-2 text-sm text-text-muted">
-            هذا الإجراء نهائي ولا يمكن التراجع عنه. سيتم حذف جميع بياناتك بما في
-            ذلك الموجزات والمواقع الإلكترونية.
-          </p>
-        </div>
-
-        <p className="mb-2 text-sm text-text-secondary">
-          يرجى كتابة بريدك الإلكتروني{' '}
-          <strong className="text-text-primary">{userEmail}</strong> للتأكيد:
-        </p>
-
-        <form
-          onSubmit={async (e) => {
-            e.preventDefault();
-            const form = e.target as HTMLFormElement;
-            const emailInput = form.elements.namedItem(
-              'confirm-email'
-            ) as HTMLInputElement;
-            const email = emailInput.value.trim();
-            const errorEl = form.querySelector(
-              '.delete-error'
-            ) as HTMLElement;
-            const submitBtn = form.querySelector(
-              'button[type="submit"]'
-            ) as HTMLButtonElement;
-
-            if (email !== userEmail) {
-              if (errorEl) {
-                errorEl.textContent =
-                  'البريد الإلكتروني غير مطابق. يرجى التأكيد باستخدام بريدك الإلكتروني المسجل.';
-                errorEl.style.display = 'block';
-              }
-              return;
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'جاري الحذف...';
-
-            try {
-              const res = await fetch('/api/user', {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email }),
-              });
-
-              const json = await res.json();
-
-              if (json.error) {
-                if (errorEl) {
-                  errorEl.textContent =
-                    json.message || 'فشل في حذف الحساب. يرجى المحاولة مرة أخرى.';
-                  errorEl.style.display = 'block';
-                }
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'تأكيد الحذف';
-                return;
-              }
-
-              // Redirect to login page after successful deletion
-              window.location.href = '/login';
-            } catch {
-              if (errorEl) {
-                errorEl.textContent =
-                  'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.';
-                errorEl.style.display = 'block';
-              }
-              submitBtn.disabled = false;
-              submitBtn.textContent = 'تأكيد الحذف';
-            }
-          }}
-        >
-          <input
-            type="email"
-            name="confirm-email"
-            required
-            placeholder="example@email.com"
-            className="h-11 w-full rounded-lg border border-surface-border bg-surface-card px-4 text-base text-text-primary placeholder-text-muted transition-colors focus:border-error focus:outline-none focus:ring-1 focus:ring-error lg:h-10 lg:text-sm"
-            inputMode="email"
-            autoComplete="email"
-          />
-
-          <p
-            className="delete-error mt-2 hidden text-sm text-error"
-            role="alert"
-          />
-
-          <div className="mt-4 flex flex-col gap-2 lg:flex-row lg:justify-end">
-            <button
-              type="button"
-              className="flex h-11 items-center justify-center rounded-lg border border-surface-border bg-surface-card px-4 text-sm font-medium text-text-primary transition-colors hover:bg-white/5 lg:h-10"
-              onClick={() => {
-                const dialog =
-                  document.getElementById('delete-account-dialog');
-                if (dialog) dialog.style.display = 'none';
-              }}
-            >
-              إلغاء
-            </button>
-            <button
-              type="submit"
-              className="flex h-11 items-center justify-center rounded-lg bg-error px-4 text-sm font-medium text-white transition-colors hover:bg-error/90 lg:h-10"
-            >
-              تأكيد الحذف
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-}

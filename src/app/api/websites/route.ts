@@ -52,8 +52,19 @@ export async function POST(req: Request): Promise<NextResponse> {
     // 1. Validate request body
     const body = websiteSchema.parse(await req.json());
 
-    // 2. Check website limit
+    // 2. Access control check — plan must not be 'none'
     const plan = session.plan as PlanType;
+    if (plan === 'none') {
+      return NextResponse.json(
+        {
+          error: 'forbidden',
+          message: 'You do not have an active plan. Please subscribe to add websites.',
+        },
+        { status: 403 }
+      );
+    }
+
+    // 3. Check website limit
     const limit = getWebsiteLimit(plan);
 
     if (limit !== Infinity) {
@@ -65,23 +76,23 @@ export async function POST(req: Request): Promise<NextResponse> {
       if (countError) {
         console.error('Failed to count websites:', countError);
         return NextResponse.json(
-          { error: 'server_error', message: 'فشل في التحقق من عدد المواقع' },
+          { error: 'server_error', message: 'Failed to verify website count.' },
           { status: 500 }
         );
       }
 
-      if (count !== null && count >= limit) {
+      if (count !== null && count >= limit && limit > 0) {
         return NextResponse.json(
           {
             error: 'limit_reached',
-            message: `لقد وصلت إلى الحد الأقصى للمواقع (${limit}). يرجى ترقية خطتك لإضافة المزيد من المواقع.`,
+            message: `You have reached the maximum number of websites (${limit}). Please upgrade your plan to add more websites.`,
           },
           { status: 403 }
         );
       }
     }
 
-    // 3. Insert website
+    // 4. Insert website
     const { data, error } = await supabase
       .from('websites')
       .insert({

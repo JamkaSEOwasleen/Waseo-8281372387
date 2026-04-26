@@ -106,9 +106,6 @@ export const authConfig = {
      * Syncs user data from Supabase users table into the JWT token.
      */
     async jwt({ token, account }) {
-      // Only run on sign-in (when account object exists)
-      if (!account) return token;
-
       const email = token.email;
       if (!email) return token;
 
@@ -122,15 +119,16 @@ export const authConfig = {
         .single();
 
       if (existingUser) {
-        // Existing user — add DB fields to token
+        // Existing user — add DB fields to token (refreshes plan on every request)
         token.id = existingUser.id;
         token.plan = existingUser.plan as PlanType;
         token.trialEndsAt = existingUser.trial_ends_at;
         token.accountFlagged = existingUser.account_flagged;
         token.paymentFailedAt = existingUser.payment_failed_at;
         token.subscriptionCancelledAt = existingUser.subscription_cancelled_at;
-      } else {
-        // New user — grant 3-day free trial with plan='starter'
+      } else if (account) {
+        // New user (only on actual sign-in when account object exists)
+        // Grant 3-day free trial with plan='starter'
         const trialEndDate = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString();
         const { data: newUser, error: insertError } = await supabase
           .from('users')
