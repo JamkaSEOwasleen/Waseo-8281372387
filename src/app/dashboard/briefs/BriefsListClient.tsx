@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge, IntentBadge } from '@/components/ui/Badge';
 import { SkeletonCard } from '@/components/ui/Skeleton';
-import { formatDate } from '@/lib/utils';
+import { formatDateEn as formatDate } from '@/lib/utils';
 import type { Brief } from '@/types';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
