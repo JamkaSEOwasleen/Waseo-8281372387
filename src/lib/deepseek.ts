@@ -14,6 +14,8 @@ const DEEPSEEK_CONFIG = {
   endpoint: 'https://api.deepseek.com/v1/chat/completions',
   maxRetries: 2,
   retryDelayMs: 1000,
+  /** Per-fetch timeout in ms — prevents hanging when Deepseek is overloaded */
+  fetchTimeoutMs: 25000,
 } as const;
 
 /**
@@ -37,19 +39,32 @@ async function callDeepseek(
   maxTokens: number,
   temperature: number
 ): Promise<string> {
-  const response = await fetch(DEEPSEEK_CONFIG.endpoint, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model: DEEPSEEK_CONFIG.model,
-      messages,
-      max_tokens: maxTokens,
-      temperature,
-    }),
-  });
+  // AbortController prevents fetch from hanging indefinitely when Deepseek is overloaded
+  const controller = new AbortController();
+  const timeoutId = setTimeout(
+    () => controller.abort(),
+    DEEPSEEK_CONFIG.fetchTimeoutMs
+  );
+
+  let response: Response;
+  try {
+    response = await fetch(DEEPSEEK_CONFIG.endpoint, {
+      signal: controller.signal,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: DEEPSEEK_CONFIG.model,
+        messages,
+        max_tokens: maxTokens,
+        temperature,
+      }),
+    });
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   if (!response.ok) {
     const errorBody = await response.text().catch(() => 'Unknown error');
@@ -75,6 +90,16 @@ async function callDeepseek(
 function parseJsonResponse<T>(rawText: string): T {
   // Strip markdown code block markers
   const cleanText = rawText.replace(/```json|```/g, '').trim();
+
+  // Validate that the content looks like JSON before parsing.
+  // Deepseek sometimes returns HTTP 200 with an error message in the content
+  // field instead of valid JSON (e.g. "An error occurred while processing...").
+  if (!cleanText.startsWith('{') && !cleanText.startsWith('[')) {
+    throw new Error(
+      `Deepseek returned non-JSON content. First 100 chars: "${cleanText.slice(0, 100)}"`
+    );
+  }
+
   return JSON.parse(cleanText) as T;
 }
 
