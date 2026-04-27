@@ -30,7 +30,7 @@ export async function GET(): Promise<NextResponse> {
     if (error) {
       console.error('Failed to count websites:', error);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في جلب عدد المواقع' },
+        { error: 'server_error', message: 'Failed to fetch website count' },
         { status: 500 }
       );
     }
@@ -49,7 +49,7 @@ export async function GET(): Promise<NextResponse> {
     }
     console.error('GET /api/websites/count error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع' },
+      { error: 'server_error', message: 'An unexpected error occurred' },
       { status: 500 }
     );
   }

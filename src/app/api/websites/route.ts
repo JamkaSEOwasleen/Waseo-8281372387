@@ -22,7 +22,7 @@ export async function GET(): Promise<NextResponse> {
     if (error) {
       console.error('Failed to fetch websites:', error);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في جلب المواقع' },
+        { error: 'server_error', message: 'Failed to fetch websites' },
         { status: 500 }
       );
     }
@@ -34,7 +34,7 @@ export async function GET(): Promise<NextResponse> {
     }
     console.error('GET /api/websites error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع' },
+      { error: 'server_error', message: 'An unexpected error occurred' },
       { status: 500 }
     );
   }
@@ -120,7 +120,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     if (error) {
       console.error('Failed to create website:', error);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في إنشاء الموقع' },
+        { error: 'server_error', message: 'Failed to create website' },
         { status: 500 }
       );
     }
@@ -132,13 +132,13 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
     if (err instanceof Error && err.name === 'ZodError') {
       return NextResponse.json(
-        { error: 'validation_error', message: 'بيانات غير صالحة', details: (err as { issues?: unknown[] }).issues },
+        { error: 'validation_error', message: 'Invalid data', details: (err as { issues?: unknown[] }).issues },
         { status: 400 }
       );
     }
     console.error('POST /api/websites error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع' },
+      { error: 'server_error', message: 'An unexpected error occurred' },
       { status: 500 }
     );
   }

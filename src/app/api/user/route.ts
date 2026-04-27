@@ -7,11 +7,11 @@ import { z } from 'zod/v4';
 // ─── Validation Schemas ──────────────────────────────────────────────────────
 
 const updateNameSchema = z.object({
-  name: z.string().min(1, 'الاسم مطلوب').max(100, 'الاسم طويل جداً'),
+  name: z.string().min(1, 'Name is required').max(100, 'Name is too long'),
 });
 
 const deleteAccountSchema = z.object({
-  email: z.string().email('البريد الإلكتروني غير صالح'),
+  email: z.string().email('Invalid email address'),
 });
 
 // ─── GET /api/user ───────────────────────────────────────────────────────────
@@ -23,7 +23,7 @@ export async function GET(): Promise<NextResponse> {
 
     if (!session?.user?.id) {
       return NextResponse.json(
-        { error: 'unauthorized', message: 'يجب تسجيل الدخول للوصول إلى هذه الخدمة.' },
+        { error: 'unauthorized', message: 'You must be logged in to access this service.' },
         { status: 401 }
       );
     }
@@ -37,7 +37,7 @@ export async function GET(): Promise<NextResponse> {
 
     if (error || !user) {
       return NextResponse.json(
-        { error: 'not_found', message: 'المستخدم غير موجود.' },
+        { error: 'not_found', message: 'User not found.' },
         { status: 404 }
       );
     }
@@ -46,7 +46,7 @@ export async function GET(): Promise<NextResponse> {
   } catch (error) {
     console.error('GET /api/user error:', error);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.' },
+      { error: 'server_error', message: 'An unexpected error occurred. Please try again.' },
       { status: 500 }
     );
   }
@@ -61,7 +61,7 @@ export async function PATCH(req: Request): Promise<NextResponse> {
 
     if (!session?.user?.id) {
       return NextResponse.json(
-        { error: 'unauthorized', message: 'يجب تسجيل الدخول للوصول إلى هذه الخدمة.' },
+        { error: 'unauthorized', message: 'You must be logged in to access this service.' },
         { status: 401 }
       );
     }
@@ -73,7 +73,7 @@ export async function PATCH(req: Request): Promise<NextResponse> {
       return NextResponse.json(
         {
           error: 'validation_error',
-          message: parsed.error?.issues?.[0]?.message ?? 'بيانات غير صالحة.',
+          message: parsed.error?.issues?.[0]?.message ?? 'Invalid data.',
         },
         { status: 400 }
       );
@@ -89,7 +89,7 @@ export async function PATCH(req: Request): Promise<NextResponse> {
 
     if (error || !updatedUser) {
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل تحديث الملف الشخصي.' },
+        { error: 'server_error', message: 'Failed to update profile.' },
         { status: 500 }
       );
     }
@@ -98,7 +98,7 @@ export async function PATCH(req: Request): Promise<NextResponse> {
   } catch (error) {
     console.error('PATCH /api/user error:', error);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.' },
+      { error: 'server_error', message: 'An unexpected error occurred. Please try again.' },
       { status: 500 }
     );
   }
@@ -114,7 +114,7 @@ export async function DELETE(req: Request): Promise<NextResponse> {
 
     if (!session?.user?.id) {
       return NextResponse.json(
-        { error: 'unauthorized', message: 'يجب تسجيل الدخول للوصول إلى هذه الخدمة.' },
+        { error: 'unauthorized', message: 'You must be logged in to access this service.' },
         { status: 401 }
       );
     }
@@ -127,7 +127,7 @@ export async function DELETE(req: Request): Promise<NextResponse> {
       return NextResponse.json(
         {
           error: 'validation_error',
-          message: parsed.error?.issues?.[0]?.message ?? 'بيانات غير صالحة.',
+          message: parsed.error?.issues?.[0]?.message ?? 'Invalid data.',
         },
         { status: 400 }
       );
@@ -136,7 +136,7 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     // 2. Verify the confirmed email matches the session user's email
     if (parsed.data.email !== session.user.email) {
       return NextResponse.json(
-        { error: 'forbidden', message: 'البريد الإلكتروني غير مطابق. يرجى التأكيد باستخدام بريدك الإلكتروني المسجل.' },
+        { error: 'forbidden', message: 'Email does not match. Please confirm using your registered email.' },
         { status: 403 }
       );
     }
@@ -152,7 +152,7 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     if (briefsError) {
       console.error('Failed to delete user briefs:', briefsError);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في حذف الحساب. يرجى المحاولة مرة أخرى.' },
+        { error: 'server_error', message: 'Failed to delete account. Please try again.' },
         { status: 500 }
       );
     }
@@ -165,7 +165,7 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     if (websitesError) {
       console.error('Failed to delete user websites:', websitesError);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في حذف الحساب. يرجى المحاولة مرة أخرى.' },
+        { error: 'server_error', message: 'Failed to delete account. Please try again.' },
         { status: 500 }
       );
     }
@@ -178,7 +178,7 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     if (usageError) {
       console.error('Failed to delete user usage records:', usageError);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في حذف الحساب. يرجى المحاولة مرة أخرى.' },
+        { error: 'server_error', message: 'Failed to delete account. Please try again.' },
         { status: 500 }
       );
     }
@@ -192,7 +192,7 @@ export async function DELETE(req: Request): Promise<NextResponse> {
     if (userError) {
       console.error('Failed to delete user:', userError);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في حذف الحساب. يرجى المحاولة مرة أخرى.' },
+        { error: 'server_error', message: 'Failed to delete account. Please try again.' },
         { status: 500 }
       );
     }
@@ -204,7 +204,7 @@ export async function DELETE(req: Request): Promise<NextResponse> {
   } catch (error) {
     console.error('DELETE /api/user error:', error);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.' },
+      { error: 'server_error', message: 'An unexpected error occurred. Please try again.' },
       { status: 500 }
     );
   }

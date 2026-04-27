@@ -48,7 +48,7 @@ export function AccountActions({
 
     if (confirmEmail.trim() !== userEmail) {
       setDeleteError(
-        'البريد الإلكتروني غير مطابق. يرجى التأكيد باستخدام بريدك الإلكتروني المسجل.'
+        'Email does not match. Please confirm using your registered email address.'
       );
       return;
     }
@@ -66,7 +66,7 @@ export function AccountActions({
 
       if (json.error) {
         setDeleteError(
-          json.message || 'فشل في حذف الحساب. يرجى المحاولة مرة أخرى.'
+          json.message || 'Failed to delete account. Please try again.'
         );
         setDeleting(false);
         return;
@@ -75,7 +75,7 @@ export function AccountActions({
       // Redirect to login page after successful deletion
       window.location.href = '/login';
     } catch {
-      setDeleteError('حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.');
+      setDeleteError('An unexpected error occurred. Please try again.');
       setDeleting(false);
     }
   };
@@ -94,7 +94,7 @@ export function AccountActions({
               className="flex h-11 items-center justify-center rounded-lg border border-surface-border bg-surface-card px-4 text-sm font-medium text-text-primary transition-colors hover:bg-white/5 lg:h-10"
               onClick={handleManageBilling}
             >
-              إدارة الفوترة
+              Manage Billing
             </button>
           )}
 
@@ -103,7 +103,7 @@ export function AccountActions({
               href="/pricing"
               className="flex h-11 items-center justify-center rounded-lg bg-primary px-4 text-sm font-medium text-white transition-colors hover:bg-primary/90 lg:h-10"
             >
-              ترقية الخطة
+              Upgrade Plan
             </a>
           )}
         </>
@@ -116,7 +116,7 @@ export function AccountActions({
           <div>
             <div className="mb-4 flex items-center gap-3">
               <h2 className="text-xl font-semibold text-error lg:text-2xl">
-                منطقة الخطر
+                Danger Zone
               </h2>
               <div className="h-px flex-1 bg-error/20" />
             </div>
@@ -125,11 +125,11 @@ export function AccountActions({
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div>
                   <h3 className="text-base font-semibold text-text-primary lg:text-lg">
-                    حذف الحساب
+                    Delete Account
                   </h3>
                   <p className="mt-1 text-sm text-text-muted">
-                    سيؤدي حذف حسابك إلى إزالة جميع الموجزات والمواقع الإلكترونية
-                    والبيانات المرتبطة بشكل دائم. لا يمكن التراجع عن هذا الإجراء.
+                    Deleting your account will permanently remove all briefs, websites,
+                    and associated data. This action cannot be undone.
                   </p>
                 </div>
                 <button
@@ -138,7 +138,7 @@ export function AccountActions({
                   className="flex h-11 shrink-0 items-center justify-center rounded-lg border border-error/40 px-4 text-sm font-medium text-error transition-colors hover:bg-error/10 lg:h-10"
                   onClick={(): void => setDialogVisible(true)}
                 >
-                  حذف الحساب
+                  Delete Account
                 </button>
               </div>
             </div>
@@ -163,18 +163,18 @@ export function AccountActions({
                 <div className="mb-6 text-center">
                   <div className="mb-3 text-4xl">⚠️</div>
                   <h3 className="text-lg font-bold text-text-primary">
-                    تأكيد حذف الحساب
+                    Confirm Account Deletion
                   </h3>
                   <p className="mt-2 text-sm text-text-muted">
-                    هذا الإجراء نهائي ولا يمكن التراجع عنه. سيتم حذف جميع بياناتك
-                    بما في ذلك الموجزات والمواقع الإلكترونية.
+                    This action is permanent and cannot be undone. All your data
+                    including briefs and websites will be deleted.
                   </p>
                 </div>
 
                 <p className="mb-2 text-sm text-text-secondary">
-                  يرجى كتابة بريدك الإلكتروني{' '}
+                  Please type your email{' '}
                   <strong className="text-text-primary">{userEmail}</strong>{' '}
-                  للتأكيد:
+                  to confirm:
                 </p>
 
                 <form onSubmit={handleDeleteAccount}>
@@ -205,14 +205,14 @@ export function AccountActions({
                         setConfirmEmail('');
                       }}
                     >
-                      إلغاء
+                      Cancel
                     </button>
                     <button
                       type="submit"
                       disabled={deleting}
                       className="flex h-11 items-center justify-center rounded-lg bg-error px-4 text-sm font-medium text-white transition-colors hover:bg-error/90 disabled:cursor-not-allowed disabled:opacity-50 lg:h-10"
                     >
-                      {deleting ? 'جاري الحذف...' : 'تأكيد الحذف'}
+                      {deleting ? 'Deleting...' : 'Confirm Deletion'}
                     </button>
                   </div>
                 </form>

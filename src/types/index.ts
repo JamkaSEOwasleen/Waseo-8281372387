@@ -188,7 +188,6 @@ export interface SchemaOutput {
 export interface PlanConfig {
   id: PlanType;
   name: string;
-  nameAr: string;
   price: number;
   annualPrice: number;
   briefLimit: number;
@@ -198,7 +197,6 @@ export interface PlanConfig {
   hasTrial: boolean;
   trialDays: number;
   features: string[];
-  featuresAr: string[];
 }
 
 // ─── API Response Types ─────────────────────────────────────────────────────

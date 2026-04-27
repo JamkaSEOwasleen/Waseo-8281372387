@@ -31,13 +31,13 @@ export async function GET(
     if (error) {
       if (error.code === 'PGRST116') {
         return NextResponse.json(
-          { error: 'not_found', message: 'الموجز غير موجود أو لا تملك صلاحية الوصول إليه.' },
+          { error: 'not_found', message: 'Brief not found or you do not have access.' },
           { status: 404 }
         );
       }
       console.error('Failed to fetch brief:', error);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في جلب الموجز' },
+        { error: 'server_error', message: 'Failed to fetch brief' },
         { status: 500 }
       );
     }
@@ -68,7 +68,7 @@ export async function GET(
     }
     console.error('GET /api/briefs/[id] error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع' },
+      { error: 'server_error', message: 'An unexpected error occurred' },
       { status: 500 }
     );
   }
@@ -96,7 +96,7 @@ export async function DELETE(
 
     if (fetchError || !existing) {
       return NextResponse.json(
-        { error: 'not_found', message: 'الموجز غير موجود أو لا تملك صلاحية الوصول إليه.' },
+        { error: 'not_found', message: 'Brief not found or you do not have access.' },
         { status: 404 }
       );
     }
@@ -111,7 +111,7 @@ export async function DELETE(
     if (error) {
       console.error('Failed to delete brief:', error);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في حذف الموجز' },
+        { error: 'server_error', message: 'Failed to delete brief' },
         { status: 500 }
       );
     }
@@ -126,7 +126,7 @@ export async function DELETE(
     }
     console.error('DELETE /api/briefs/[id] error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع' },
+      { error: 'server_error', message: 'An unexpected error occurred' },
       { status: 500 }
     );
   }

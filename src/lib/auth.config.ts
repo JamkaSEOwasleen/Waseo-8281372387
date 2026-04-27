@@ -22,10 +22,10 @@ async function sendVerificationEmail(params: {
     await resend.emails.send({
       from: provider.from ?? 'WasafSEO <noreply@wasleen.com>',
       to: email,
-      subject: 'رابط تسجيل الدخول إلى WasafSEO',
+      subject: 'WasafSEO Sign-In Link',
       html: `
         <!DOCTYPE html>
-        <html dir="rtl" lang="ar">
+        <html lang="en">
         <head>
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,26 +38,26 @@ async function sendVerificationEmail(params: {
                   <tr>
                     <td style="background:#0f1624;border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:40px 32px;text-align:center;">
                       <h1 style="font-size:28px;font-weight:700;color:#e2e8f0;margin:0 0 8px;font-family:system-ui;">WasafSEO</h1>
-                      <p style="font-size:16px;color:#a78bfa;margin:0 0 24px;">أداة توليد المحتوى العربي الذكي</p>
+                      <p style="font-size:16px;color:#a78bfa;margin:0 0 24px;">Smart Arabic Content Generation Tool</p>
                       <div style="height:1px;background:rgba(255,255,255,0.07);margin:0 0 24px;"></div>
                       <p style="font-size:16px;color:#e2e8f0;margin:0 0 8px;line-height:1.6;">
-                        مرحباً بك في WasafSEO
+                        Welcome to WasafSEO
                       </p>
                       <p style="font-size:14px;color:#64748b;margin:0 0 24px;line-height:1.6;">
-                        انقر على الرابط أدناه لتسجيل الدخول إلى حسابك
+                        Click the link below to sign in to your account
                       </p>
                       <table role="presentation" cellpadding="0" cellspacing="0" style="margin:0 auto;">
                         <tr>
                           <td align="center" style="background:#7c3aed;border-radius:8px;padding:0;">
                             <a href="${url}"
                                style="display:inline-block;padding:14px 32px;font-size:16px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:8px;">
-                              تسجيل الدخول
+                              Sign In
                             </a>
                           </td>
                         </tr>
                       </table>
                       <p style="font-size:12px;color:#64748b;margin:24px 0 0;line-height:1.6;">
-                        إذا لم تطلب هذا الرابط، يمكنك تجاهل هذه الرسالة بأمان.
+                        If you did not request this link, you can safely ignore this email.
                       </p>
                     </td>
                   </tr>

@@ -52,8 +52,8 @@ export async function generateMetadata({
   // Reject reserved paths early — don't call Supabase for internal routes
   if (isReservedPillar(pillar)) {
     return {
-      title: 'الصفحة غير موجودة | WasafSEO',
-      description: 'لم يتم العثور على الصفحة المطلوبة.',
+      title: 'Page Not Found | WasafSEO',
+      description: 'The requested page could not be found.',
     };
   }
 
@@ -62,8 +62,8 @@ export async function generateMetadata({
 
   if (!page) {
     return {
-      title: 'الصفحة غير موجودة | WasafSEO',
-      description: 'لم يتم العثور على الصفحة المطلوبة.',
+      title: 'Page Not Found | WasafSEO',
+      description: 'The requested page could not be found.',
     };
   }
 

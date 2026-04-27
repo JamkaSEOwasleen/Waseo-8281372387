@@ -9,14 +9,14 @@ interface FooterLink {
 }
 
 const LEGAL_LINKS: FooterLink[] = [
-  { label: 'سياسة الخصوصية', href: '/privacy' },
-  { label: 'شروط الخدمة', href: '/terms' },
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Terms of Service', href: '/terms' },
 ];
 
 const PRODUCT_LINKS: FooterLink[] = [
-  { label: 'الرئيسية', href: '/' },
-  { label: 'الباقات', href: '/pricing' },
-  { label: 'تسجيل الدخول', href: '/login' },
+  { label: 'Home', href: '/' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Sign In', href: '/login' },
 ];
 
 // ─── Component ─────────────────────────────────────────────────────────────────
@@ -42,15 +42,15 @@ export function PSEOFooter(): React.ReactElement {
               </span>
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-text-muted">
-              منصة متخصصة في إنشاء موجزات المحتوى العربية المتوافقة مع SEO
-              و JSON-LD.
+              A specialized platform for creating Arabic SEO and JSON-LD compliant
+              content briefs.
             </p>
           </div>
 
           {/* Product links */}
           <div>
             <h3 className="mb-4 text-sm font-semibold text-text-primary">
-              المنتج
+              Product
             </h3>
             <ul className="space-y-3">
               {PRODUCT_LINKS.map(({ label, href }) => (
@@ -69,7 +69,7 @@ export function PSEOFooter(): React.ReactElement {
           {/* Legal links */}
           <div>
             <h3 className="mb-4 text-sm font-semibold text-text-primary">
-              القانوني
+              Legal
             </h3>
             <ul className="space-y-3">
               {LEGAL_LINKS.map(({ label, href }) => (
@@ -92,9 +92,9 @@ export function PSEOFooter(): React.ReactElement {
         {/* ── Bottom Bar ───────────────────────────────────────────────── */}
         <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
           <p className="text-xs text-text-muted">
-            &copy; {currentYear} WasafSEO. جميع الحقوق محفوظة.
+            &copy; {currentYear} WasafSEO. All rights reserved.
           </p>
-          <p className="text-xs text-text-muted">للمحتوى العربي 🌙</p>
+          <p className="text-xs text-text-muted">For Arabic content 🌙</p>
         </div>
       </div>
     </footer>

@@ -12,7 +12,7 @@ import {
   getWebsiteLimit,
   isTrialActive,
   getTrialDaysRemaining,
-  formatDateAr,
+  formatDateEn as formatDate,
 } from '@/lib/utils';
 import { Card, CardHeader } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
@@ -41,7 +41,6 @@ export const metadata = {
 
 interface PlanInfo {
   name: string;
-  nameAr: string;
   price: string;
   briefLimit: string;
   websiteLimit: string;
@@ -54,7 +53,6 @@ interface PlanInfo {
 const PLAN_INFO: Record<string, PlanInfo> = {
   none: {
     name: 'Free',
-    nameAr: 'مجاني',
     price: '$0/mo',
     briefLimit: '0 briefs',
     websiteLimit: '0 websites',
@@ -65,7 +63,6 @@ const PLAN_INFO: Record<string, PlanInfo> = {
   },
   starter: {
     name: 'Starter',
-    nameAr: 'المبتدئ',
     price: '$49/mo',
     briefLimit: '30 briefs/mo',
     websiteLimit: '1 website',
@@ -76,7 +73,6 @@ const PLAN_INFO: Record<string, PlanInfo> = {
   },
   pro: {
     name: 'Pro',
-    nameAr: 'احترافي',
     price: '$149/mo',
     briefLimit: '150 briefs/mo',
     websiteLimit: '5 websites',
@@ -87,7 +83,6 @@ const PLAN_INFO: Record<string, PlanInfo> = {
   },
   agency: {
     name: 'Agency',
-    nameAr: 'وكالة',
     price: '$399/mo',
     briefLimit: 'Unlimited',
     websiteLimit: 'Unlimited',
@@ -194,7 +189,7 @@ export default async function BillingPage(): Promise<React.ReactElement> {
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="text-lg font-semibold text-text-primary">
-                        {planInfo.nameAr}
+                        {planInfo.name}
                       </h3>
                       <Badge
                         variant={
@@ -234,7 +229,7 @@ export default async function BillingPage(): Promise<React.ReactElement> {
                 {isCancelled && (
                   <p className="mt-4 text-sm text-error">
                     Your subscription was cancelled on{' '}
-                    {formatDateAr(user.subscription_cancelled_at!)}. Access
+                    {formatDate(user.subscription_cancelled_at!)}. Access
                     continues until the end of your billing period.
                   </p>
                 )}

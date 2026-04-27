@@ -21,9 +21,9 @@ interface NavLink {
 }
 
 const NAV_LINKS: NavLink[] = [
-  { label: 'الرئيسية', href: '/' },
-  { label: 'الباقات', href: '/pricing' },
-  { label: 'تسجيل الدخول', href: '/login' },
+  { label: 'Home', href: '/' },
+  { label: 'Pricing', href: '/pricing' },
+  { label: 'Sign In', href: '/login' },
 ];
 
 // ─── Component ─────────────────────────────────────────────────────────────────
@@ -72,7 +72,7 @@ export function PSEONavbar({ pillar }: PSEONavbarProps): ReactElement {
               'active:scale-[0.98]',
             )}
           >
-            ابدأ مجاناً
+            Start Free
           </Link>
         </nav>
 
@@ -137,7 +137,7 @@ export function PSEONavbar({ pillar }: PSEONavbarProps): ReactElement {
                     'active:scale-[0.98]',
                   )}
                 >
-                  ابدأ مجاناً
+                  Start Free
                 </Link>
               </div>
             </nav>

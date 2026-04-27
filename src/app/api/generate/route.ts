@@ -19,7 +19,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     const user = await getUserFromDb(session.id);
     if (!user) {
       return NextResponse.json(
-        { error: 'unauthorized', message: 'يجب تسجيل الدخول للوصول إلى هذه الخدمة.' },
+        { error: 'unauthorized', message: 'You must be logged in to access this service.' },
         { status: 401 }
       );
     }
@@ -29,19 +29,19 @@ export async function POST(req: Request): Promise<NextResponse> {
     if (!access.allowed) {
       if (access.reason === 'flagged') {
         return NextResponse.json(
-          { error: 'forbidden', message: 'تم تعليق حسابك. يرجى التواصل مع الدعم.' },
+          { error: 'forbidden', message: 'Your account has been suspended. Please contact support.' },
           { status: 403 }
         );
       }
       if (access.reason === 'no_plan') {
         return NextResponse.json(
-          { error: 'forbidden', message: 'لا يوجد اشتراك نشط. يرجى الاشتراك للمتابعة.' },
+          { error: 'forbidden', message: 'No active subscription. Please subscribe to continue.' },
           { status: 403 }
         );
       }
       if (access.reason === 'trial_expired') {
         return NextResponse.json(
-          { error: 'forbidden', message: 'انتهت الفترة التجريبية. يرجى ترقية خطتك للمتابعة.' },
+          { error: 'forbidden', message: 'Your trial has expired. Please upgrade your plan to continue.' },
           { status: 403 }
         );
       }
@@ -71,7 +71,7 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     if (websiteError || !website) {
       return NextResponse.json(
-        { error: 'not_found', message: 'الموقع غير موجود أو لا تملك صلاحية الوصول إليه.' },
+        { error: 'not_found', message: 'Website not found or you do not have access.' },
         { status: 404 }
       );
     }
@@ -116,7 +116,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     if (insertError || !insertedBrief) {
       console.error('Failed to save brief:', insertError);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل حفظ الموجز. يرجى المحاولة مرة أخرى.' },
+        { error: 'server_error', message: 'Failed to save brief. Please try again.' },
         { status: 500 }
       );
     }
@@ -150,7 +150,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     // Zod validation errors
     if (err instanceof Error && err.name === 'ZodError') {
       return NextResponse.json(
-        { error: 'validation_error', message: 'بيانات غير صالحة' },
+        { error: 'validation_error', message: 'Invalid data' },
         { status: 400 }
       );
     }
@@ -158,14 +158,14 @@ export async function POST(req: Request): Promise<NextResponse> {
     // Deepseek generation errors
     if (err instanceof Error && (err.message.includes('Content brief generation failed') || err.message.includes('Schema generation failed'))) {
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل إنشاء الموجز. يرجى المحاولة مرة أخرى.' },
+        { error: 'server_error', message: 'Failed to generate brief. Please try again.' },
         { status: 500 }
       );
     }
 
     console.error('POST /api/generate error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.' },
+      { error: 'server_error', message: 'An unexpected error occurred. Please try again.' },
       { status: 500 }
     );
   }

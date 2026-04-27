@@ -6,7 +6,6 @@ export const PLANS: PlanConfig[] = [
   {
     id: 'starter',
     name: 'Starter',
-    nameAr: 'المبتدئ',
     price: 49,
     annualPrice: 490,
     briefLimit: 30,
@@ -24,20 +23,10 @@ export const PLANS: PlanConfig[] = [
       '30-day history',
       'Email support',
     ],
-    featuresAr: [
-      '30 موجزاً شهرياً',
-      'موقع واحد',
-      'موجز SEO عربي كامل',
-      'توليد JSON-LD Schema',
-      'تصدير PDF',
-      'سجل 30 يوم',
-      'دعم بالبريد الإلكتروني',
-    ],
   },
   {
     id: 'pro',
     name: 'Pro',
-    nameAr: 'الاحترافي',
     price: 149,
     annualPrice: 1490,
     briefLimit: 150,
@@ -56,21 +45,10 @@ export const PLANS: PlanConfig[] = [
       '90-day history',
       'Priority support',
     ],
-    featuresAr: [
-      '150 موجزاً شهرياً',
-      '3 مواقع',
-      'موجز SEO عربي كامل',
-      'توليد JSON-LD Schema',
-      'تحليل روابط المنافسين',
-      'تصدير PDF',
-      'سجل 90 يوم',
-      'دعم ذو أولوية',
-    ],
   },
   {
     id: 'agency',
     name: 'Agency',
-    nameAr: 'الوكالة',
     price: 299,
     annualPrice: 2990,
     briefLimit: Infinity,
@@ -89,16 +67,6 @@ export const PLANS: PlanConfig[] = [
       'Unlimited history',
       'Priority support + onboarding call',
     ],
-    featuresAr: [
-      'موجزات غير محدودة',
-      'مواقع غير محدودة',
-      'موجز SEO عربي كامل',
-      'توليد JSON-LD Schema',
-      'تحليل روابط المنافسين',
-      'تصدير PDF بعلامتك التجارية',
-      'سجل غير محدود',
-      'دعم ذو أولوية + مكالمة تأهيل',
-    ],
   },
 ];
 
@@ -107,21 +75,20 @@ export const PLANS: PlanConfig[] = [
 export interface CountryOption {
   code: string;
   nameEn: string;
-  nameAr: string;
   flag: string;
 }
 
 export const COUNTRIES: CountryOption[] = [
-  { code: 'AE', nameEn: 'UAE', nameAr: 'الإمارات', flag: '🇦🇪' },
-  { code: 'SA', nameEn: 'Saudi Arabia', nameAr: 'السعودية', flag: '🇸🇦' },
-  { code: 'EG', nameEn: 'Egypt', nameAr: 'مصر', flag: '🇪🇬' },
-  { code: 'KW', nameEn: 'Kuwait', nameAr: 'الكويت', flag: '🇰🇼' },
-  { code: 'QA', nameEn: 'Qatar', nameAr: 'قطر', flag: '🇶🇦' },
-  { code: 'BH', nameEn: 'Bahrain', nameAr: 'البحرين', flag: '🇧🇭' },
-  { code: 'OM', nameEn: 'Oman', nameAr: 'عُمان', flag: '🇴🇲' },
-  { code: 'MA', nameEn: 'Morocco', nameAr: 'المغرب', flag: '🇲🇦' },
-  { code: 'JO', nameEn: 'Jordan', nameAr: 'الأردن', flag: '🇯🇴' },
-  { code: 'LB', nameEn: 'Lebanon', nameAr: 'لبنان', flag: '🇱🇧' },
+  { code: 'AE', nameEn: 'UAE', flag: '🇦🇪' },
+  { code: 'SA', nameEn: 'Saudi Arabia', flag: '🇸🇦' },
+  { code: 'EG', nameEn: 'Egypt', flag: '🇪🇬' },
+  { code: 'KW', nameEn: 'Kuwait', flag: '🇰🇼' },
+  { code: 'QA', nameEn: 'Qatar', flag: '🇶🇦' },
+  { code: 'BH', nameEn: 'Bahrain', flag: '🇧🇭' },
+  { code: 'OM', nameEn: 'Oman', flag: '🇴🇲' },
+  { code: 'MA', nameEn: 'Morocco', flag: '🇲🇦' },
+  { code: 'JO', nameEn: 'Jordan', flag: '🇯🇴' },
+  { code: 'LB', nameEn: 'Lebanon', flag: '🇱🇧' },
 ];
 
 // ─── Intent Options ─────────────────────────────────────────────────────────
@@ -129,7 +96,6 @@ export const COUNTRIES: CountryOption[] = [
 export interface IntentOption {
   value: string;
   labelEn: string;
-  labelAr: string;
   icon: string;
   description: string;
 }
@@ -138,35 +104,30 @@ export const INTENT_OPTIONS: IntentOption[] = [
   {
     value: 'how-to',
     labelEn: 'How-To',
-    labelAr: 'كيف تفعل',
     icon: '📋',
     description: 'Step-by-step guide content',
   },
   {
     value: 'informational',
     labelEn: 'Informational',
-    labelAr: 'معلوماتي',
     icon: '📚',
     description: 'Educational and explanatory content',
   },
   {
     value: 'commercial',
     labelEn: 'Commercial',
-    labelAr: 'تجاري',
     icon: '🛍️',
     description: 'Product and service pages',
   },
   {
     value: 'comparison',
     labelEn: 'Comparison',
-    labelAr: 'مقارنة',
     icon: '⚖️',
     description: 'Compare options and alternatives',
   },
   {
     value: 'navigational',
     labelEn: 'Navigational',
-    labelAr: 'تنقلي',
     icon: '🧭',
     description: 'Brand and navigation pages',
   },
@@ -177,16 +138,15 @@ export const INTENT_OPTIONS: IntentOption[] = [
 export interface NicheOption {
   value: string;
   labelEn: string;
-  labelAr: string;
   icon: string;
 }
 
 export const NICHE_OPTIONS: NicheOption[] = [
-  { value: 'blog', labelEn: 'Blog', labelAr: 'مدونة', icon: '✍️' },
-  { value: 'ecommerce', labelEn: 'E-Commerce', labelAr: 'متجر إلكتروني', icon: '🛒' },
-  { value: 'saas', labelEn: 'SaaS', labelAr: 'برمجيات', icon: '💻' },
-  { value: 'news', labelEn: 'News', labelAr: 'أخبار', icon: '📰' },
-  { value: 'portfolio', labelEn: 'Portfolio', labelAr: 'معرض أعمال', icon: '🎨' },
+  { value: 'blog', labelEn: 'Blog', icon: '✍️' },
+  { value: 'ecommerce', labelEn: 'E-Commerce', icon: '🛒' },
+  { value: 'saas', labelEn: 'SaaS', icon: '💻' },
+  { value: 'news', labelEn: 'News', icon: '📰' },
+  { value: 'portfolio', labelEn: 'Portfolio', icon: '🎨' },
 ];
 
 // ─── Plan Limits ────────────────────────────────────────────────────────────

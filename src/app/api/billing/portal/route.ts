@@ -20,7 +20,7 @@ export async function GET(): Promise<NextResponse> {
 
     if (error || !user) {
       return NextResponse.json(
-        { error: 'not_found', message: 'المستخدم غير موجود.' },
+        { error: 'not_found', message: 'User not found.' },
         { status: 404 }
       );
     }
@@ -29,7 +29,7 @@ export async function GET(): Promise<NextResponse> {
       return NextResponse.json(
         {
           error: 'not_found',
-          message: 'لم يتم العثور على حساب فوترة. يرجى الاشتراك أولاً.',
+          message: 'No billing account found. Please subscribe first.',
         },
         { status: 404 }
       );
@@ -39,7 +39,7 @@ export async function GET(): Promise<NextResponse> {
 
     if (!portalUrl) {
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في الحصول على رابط لوحة الفوترة.' },
+        { error: 'server_error', message: 'Failed to get billing portal link.' },
         { status: 500 }
       );
     }
@@ -54,7 +54,7 @@ export async function GET(): Promise<NextResponse> {
     }
     console.error('GET /api/billing/portal error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.' },
+      { error: 'server_error', message: 'An unexpected error occurred. Please try again.' },
       { status: 500 }
     );
   }

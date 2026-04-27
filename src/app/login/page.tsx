@@ -28,7 +28,7 @@ export default async function LoginPage(props: {
   return (
     <main
       className="flex min-h-screen flex-col items-center justify-center bg-surface px-4"
-      dir="rtl"
+      dir="ltr"
     >
       <div className="w-full max-w-md">
         <LoginForm refParam={ref} />
@@ -36,19 +36,19 @@ export default async function LoginPage(props: {
 
       {/* Footer */}
       <p className="mt-8 text-center text-xs text-text-muted">
-        بالمتابعة، أنت توافق على{' '}
+        By continuing, you agree to{' '}
         <a
           href="/terms"
           className="underline underline-offset-2 hover:text-text-accent transition-colors"
         >
-          شروط الخدمة
+          Terms of Service
         </a>{' '}
-        و{' '}
+        and{' '}
         <a
           href="/privacy"
           className="underline underline-offset-2 hover:text-text-accent transition-colors"
         >
-          سياسة الخصوصية
+          Privacy Policy
         </a>
       </p>
     </main>

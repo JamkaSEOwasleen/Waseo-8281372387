@@ -30,11 +30,11 @@ interface TabDefinition {
 }
 
 const TABS: TabDefinition[] = [
-  { value: 'fundamentals', labelMobile: 'الأساسيات', labelDesktop: 'Fundamentals' },
-  { value: 'content', labelMobile: 'الهيكل', labelDesktop: 'Content Structure' },
+  { value: 'fundamentals', labelMobile: 'Fundamentals', labelDesktop: 'Fundamentals' },
+  { value: 'content', labelMobile: 'Structure', labelDesktop: 'Content Structure' },
   { value: 'geo', labelMobile: 'GEO', labelDesktop: 'GEO Elements' },
   { value: 'schema', labelMobile: 'Schema', labelDesktop: 'JSON-LD Schema' },
-  { value: 'export', labelMobile: 'تصدير', labelDesktop: 'Export' },
+  { value: 'export', labelMobile: 'Export', labelDesktop: 'Export' },
 ];
 
 // ─── Component ───────────────────────────────────────────────────────────────

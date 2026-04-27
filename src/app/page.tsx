@@ -130,7 +130,7 @@ function HeroSection(): React.ReactElement {
                 TITLE
               </span>
               <p className="text-sm font-medium text-text-primary">
-                أفضل 10 استراتيجيات تحسين محركات البحث في السعودية 2026
+                Top 10 SEO Strategies for Saudi Arabia 2026
               </p>
             </div>
             <div className="grid grid-cols-2 gap-4">

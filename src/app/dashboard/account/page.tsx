@@ -14,7 +14,7 @@ import {
   getWebsiteLimit,
   isTrialActive,
   getTrialDaysRemaining,
-  formatDateAr,
+  formatDateEn as formatDate,
 } from '@/lib/utils';
 import { getInitials } from '@/lib/utils';
 import type { User, UsageState } from '@/types';
@@ -24,8 +24,8 @@ import { AccountActions } from './AccountActions';
 // ─── Metadata ───────────────────────────────────────────────────────────────
 
 export const metadata = {
-  title: 'الحساب - WasafSEO',
-  description: 'إدارة حسابك الشخصي وخطة الاشتراك',
+  title: 'Account - WasafSEO',
+  description: 'Manage your personal account and subscription plan',
 };
 
 // ─── Page Component ─────────────────────────────────────────────────────────
@@ -109,10 +109,10 @@ export default async function AccountPage(): Promise<React.ReactElement> {
 
   // 7. Plan display name
   const planLabels: Record<string, string> = {
-    starter: 'المبتدئ',
-    pro: 'احترافي',
-    agency: 'وكالة',
-    none: 'مجاني',
+    starter: 'Starter',
+    pro: 'Pro',
+    agency: 'Agency',
+    none: 'Free',
   };
 
   return (
@@ -120,10 +120,10 @@ export default async function AccountPage(): Promise<React.ReactElement> {
       {/* Page Header */}
       <div>
         <h1 className="text-2xl font-bold text-text-primary lg:text-4xl">
-          الحساب
+          Account
         </h1>
         <p className="mt-2 text-sm text-text-muted lg:text-base">
-          إدارة ملفك الشخصي وخطة الاشتراك والإعدادات
+          Manage your profile, subscription plan, and settings
         </p>
       </div>
 
@@ -131,7 +131,7 @@ export default async function AccountPage(): Promise<React.ReactElement> {
       <div>
         <div className="mb-4 flex items-center gap-3">
           <h2 className="text-xl font-semibold text-text-primary lg:text-2xl">
-            الملف الشخصي
+            Profile
           </h2>
           <div className="h-px flex-1 bg-surface-border" />
         </div>
@@ -154,7 +154,7 @@ export default async function AccountPage(): Promise<React.ReactElement> {
               )}
               <div className="lg:text-center">
                 <div className="text-sm font-medium text-text-primary lg:text-base">
-                  {user.name ?? 'مستخدم'}
+                  {user.name ?? 'User'}
                 </div>
                 <div className="text-xs text-text-muted lg:text-sm">
                   {user.email}
@@ -179,7 +179,7 @@ export default async function AccountPage(): Promise<React.ReactElement> {
       <div>
         <div className="mb-4 flex items-center gap-3">
           <h2 className="text-xl font-semibold text-text-primary lg:text-2xl">
-            الخطة والاستخدام
+            Plan & Usage
           </h2>
           <div className="h-px flex-1 bg-surface-border" />
         </div>
@@ -191,26 +191,26 @@ export default async function AccountPage(): Promise<React.ReactElement> {
               <div>
                 <div className="flex items-center gap-2">
                   <h3 className="text-lg font-semibold text-text-primary">
-                    {planLabels[user.plan] ?? 'بدون خطة'}
+                    {planLabels[user.plan] ?? 'No Plan'}
                   </h3>
                   {user.plan === 'starter' && (
                     <span className="rounded-full bg-warning/20 px-2.5 py-0.5 text-xs font-medium text-warning">
-                      {isInTrial ? 'تجريبي' : 'مبتدئ'}
+                      {isInTrial ? 'Trial' : 'Starter'}
                     </span>
                   )}
                   {user.plan === 'pro' && (
                     <span className="rounded-full bg-primary/20 px-2.5 py-0.5 text-xs font-medium text-primary-light">
-                      احترافي
+                      Pro
                     </span>
                   )}
                   {user.plan === 'agency' && (
                     <span className="rounded-full bg-success/20 px-2.5 py-0.5 text-xs font-medium text-success">
-                      وكالة
+                      Agency
                     </span>
                   )}
                   {user.plan === 'none' && (
                     <span className="rounded-full bg-error/20 px-2.5 py-0.5 text-xs font-medium text-error">
-                      بدون خطة
+                      No Plan
                     </span>
                   )}
                 </div>
@@ -218,23 +218,23 @@ export default async function AccountPage(): Promise<React.ReactElement> {
                 {/* Trial info */}
                 {isInTrial && trialDaysRemaining !== null && (
                   <p className="mt-1 text-sm text-warning">
-                    متبقي {trialDaysRemaining.toLocaleString('ar-AE')} أيام من
-                    الفترة التجريبية
+                    {trialDaysRemaining.toLocaleString('en-US')} days remaining
+                    in your trial
                   </p>
                 )}
 
                 {/* Subscription cancelled */}
                 {user.subscription_cancelled_at && (
                   <p className="mt-1 text-sm text-error">
-                    تم إلغاء الاشتراك في{' '}
-                    {formatDateAr(user.subscription_cancelled_at)}
+                    Subscription cancelled on{' '}
+                    {formatDate(user.subscription_cancelled_at)}
                   </p>
                 )}
 
                 {/* Payment failed */}
                 {user.payment_failed_at && (
                   <p className="mt-1 text-sm text-error">
-                    فشلت عملية الدفع. يرجى تحديث وسيلة الدفع.
+                    Payment failed. Please update your payment method.
                   </p>
                 )}
               </div>
@@ -254,15 +254,15 @@ export default async function AccountPage(): Promise<React.ReactElement> {
           {/* Usage Progress */}
           <div className="rounded-xl border border-surface-border bg-surface-card p-4 lg:p-6">
             <h3 className="mb-4 text-base font-semibold text-text-primary lg:text-lg">
-              استخدام الموجزات
+              Briefs Usage
             </h3>
 
             {!usageState.isUnlimited ? (
               <>
                 <div className="mb-2 flex items-center justify-between text-sm">
                   <span className="text-text-muted">
-                    {usageState.current.toLocaleString('ar-AE')} /{' '}
-                    {usageState.limit.toLocaleString('ar-AE')} موجز هذا الشهر
+                    {usageState.current.toLocaleString('en-US')} /{' '}
+                    {usageState.limit.toLocaleString('en-US')} briefs this month
                   </span>
                   <span className="text-text-primary">
                     {usageState.percentUsed}%
@@ -281,19 +281,19 @@ export default async function AccountPage(): Promise<React.ReactElement> {
               </>
             ) : (
               <p className="text-sm text-success">
-                استخدام غير محدود — لا يوجد حد شهري
+                Unlimited usage — no monthly limit
               </p>
             )}
 
             {/* Website count */}
             <div className="mt-4 border-t border-surface-border pt-4">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-text-muted">المواقع الإلكترونية</span>
+                <span className="text-text-muted">Websites</span>
                 <span className="text-text-primary">
-                  {websiteCount?.toLocaleString('ar-AE') ?? 0}
+                  {websiteCount?.toLocaleString('en-US') ?? 0}
                   {!isWebsiteUnlimited
                     ? ` / ${websiteLimit.toLocaleString('ar-AE')}`
-                    : ' / غير محدود'}
+                    : ' / Unlimited'}
                 </span>
               </div>
             </div>
@@ -305,7 +305,7 @@ export default async function AccountPage(): Promise<React.ReactElement> {
       <div>
         <div className="mb-4 flex items-center gap-3">
           <h2 className="text-xl font-semibold text-text-primary lg:text-2xl">
-            سجل الاستخدام
+            Usage History
           </h2>
           <div className="h-px flex-1 bg-surface-border" />
         </div>
@@ -315,10 +315,10 @@ export default async function AccountPage(): Promise<React.ReactElement> {
             <thead>
               <tr className="border-b border-surface-border bg-white/[0.02]">
                 <th className="px-4 py-3 text-sm font-medium text-text-muted">
-                  الشهر
+                  Month
                 </th>
                 <th className="px-4 py-3 text-sm font-medium text-text-muted">
-                  الموجزات المنشأة
+                  Briefs Generated
                 </th>
               </tr>
             </thead>
@@ -326,18 +326,18 @@ export default async function AccountPage(): Promise<React.ReactElement> {
               {usageHistory.map((row) => {
                 const [year, month] = row.month.split('-');
                 const monthNames = [
-                  'يناير',
-                  'فبراير',
-                  'مارس',
-                  'أبريل',
-                  'مايو',
-                  'يونيو',
-                  'يوليو',
-                  'أغسطس',
-                  'سبتمبر',
-                  'أكتوبر',
-                  'نوفمبر',
-                  'ديسمبر',
+                  'January',
+                  'February',
+                  'March',
+                  'April',
+                  'May',
+                  'June',
+                  'July',
+                  'August',
+                  'September',
+                  'October',
+                  'November',
+                  'December',
                 ];
                 const monthName = monthNames[parseInt(month, 10) - 1] ?? month;
                 return (
@@ -349,7 +349,7 @@ export default async function AccountPage(): Promise<React.ReactElement> {
                       {monthName} {year}
                     </td>
                     <td className="px-4 py-3 text-sm text-text-secondary">
-                      {row.count.toLocaleString('ar-AE')} موجز
+                      {row.count.toLocaleString('en-US')} briefs
                     </td>
                   </tr>
                 );

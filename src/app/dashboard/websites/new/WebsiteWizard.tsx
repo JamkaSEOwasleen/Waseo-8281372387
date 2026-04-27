@@ -336,7 +336,7 @@ export default function WebsiteWizard(): ReactElement {
                     )}
                   >
                     <span className="text-lg">{niche.icon}</span>
-                    <span>{niche.value === formData.niche ? niche.labelAr : niche.labelEn}</span>
+                    <span>{niche.labelEn}</span>
                   </button>
                 ))}
               </div>
@@ -358,7 +358,7 @@ export default function WebsiteWizard(): ReactElement {
               >
                 {COUNTRIES.map((country) => (
                   <option key={country.code} value={country.code}>
-                    {country.flag} {country.nameEn} — {country.nameAr}
+                    {country.flag} {country.nameEn}
                   </option>
                 ))}
               </select>

@@ -226,11 +226,11 @@ export default function GeneratePage(): ReactElement {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message ?? 'فشل إنشاء الموجز');
+        throw new Error(result.message ?? 'Failed to generate brief');
       }
 
       if (!result.data) {
-        throw new Error('فشل إنشاء الموجز');
+        throw new Error('Failed to generate brief');
       }
 
       setBriefResult({
@@ -241,7 +241,7 @@ export default function GeneratePage(): ReactElement {
 
       setPageState('results');
     } catch (err) {
-      setErrorMessage(err instanceof Error ? err.message : 'حدث خطأ غير متوقع');
+      setErrorMessage(err instanceof Error ? err.message : 'An unexpected error occurred');
       setPageState('error');
     }
   }, [formState]);

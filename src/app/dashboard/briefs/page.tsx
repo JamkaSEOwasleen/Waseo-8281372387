@@ -7,8 +7,8 @@ import type { ReactElement } from 'react';
 import { BriefsListClient } from './BriefsListClient';
 
 export const metadata = {
-  title: 'الموجزات - WasafSEO',
-  description: 'استعراض جميع الموجزات السابقة مع إمكانية البحث والتصفية',
+  title: 'Briefs - WasafSEO',
+  description: 'Browse all previous briefs with search and filter capabilities',
 };
 
 export default function BriefsPage(): ReactElement {
@@ -17,10 +17,10 @@ export default function BriefsPage(): ReactElement {
       {/* Page Header */}
       <div>
         <h1 className="text-2xl font-bold text-text-primary lg:text-4xl">
-          الموجزات
+          Briefs
         </h1>
         <p className="mt-2 text-sm text-text-muted lg:text-base">
-          استعراض وإدارة جميع الموجزات التي قمت بإنشائها
+          Browse and manage all your generated briefs
         </p>
       </div>
 

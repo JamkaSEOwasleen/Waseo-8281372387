@@ -50,7 +50,7 @@ export async function checkUsageLimit(
       allowed: false,
       current: 0,
       limit: 0,
-      message: 'لا يوجد اشتراك نشط. يرجى الاشتراك للمتابعة.',
+      message: 'No active subscription. Please subscribe to continue.',
     };
   }
 
@@ -71,7 +71,7 @@ export async function checkUsageLimit(
       allowed: false,
       current,
       limit,
-      message: 'لقد استنفدت حد الموجزات لهذا الشهر. يرجى ترقية خطتك للمتابعة.',
+      message: 'You have reached your monthly brief limit. Please upgrade your plan to continue.',
     };
   }
 

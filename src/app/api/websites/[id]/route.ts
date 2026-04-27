@@ -31,13 +31,13 @@ export async function GET(
     if (error) {
       if (error.code === 'PGRST116') {
         return NextResponse.json(
-          { error: 'not_found', message: 'الموقع غير موجود أو لا تملك صلاحية الوصول إليه.' },
+          { error: 'not_found', message: 'Website not found or you do not have access.' },
           { status: 404 }
         );
       }
       console.error('Failed to fetch website:', error);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في جلب الموقع' },
+        { error: 'server_error', message: 'Failed to fetch website' },
         { status: 500 }
       );
     }
@@ -49,7 +49,7 @@ export async function GET(
     }
     console.error('GET /api/websites/[id] error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع' },
+      { error: 'server_error', message: 'An unexpected error occurred' },
       { status: 500 }
     );
   }
@@ -77,7 +77,7 @@ export async function PUT(
 
     if (fetchError || !existing) {
       return NextResponse.json(
-        { error: 'not_found', message: 'الموقع غير موجود أو لا تملك صلاحية الوصول إليه.' },
+        { error: 'not_found', message: 'Website not found or you do not have access.' },
         { status: 404 }
       );
     }
@@ -105,7 +105,7 @@ export async function PUT(
     if (error) {
       console.error('Failed to update website:', error);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في تحديث الموقع' },
+        { error: 'server_error', message: 'Failed to update website' },
         { status: 500 }
       );
     }
@@ -117,13 +117,13 @@ export async function PUT(
     }
     if (err instanceof Error && err.name === 'ZodError') {
       return NextResponse.json(
-        { error: 'validation_error', message: 'بيانات غير صالحة', details: (err as { issues?: unknown[] }).issues },
+        { error: 'validation_error', message: 'Invalid data', details: (err as { issues?: unknown[] }).issues },
         { status: 400 }
       );
     }
     console.error('PUT /api/websites/[id] error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع' },
+      { error: 'server_error', message: 'An unexpected error occurred' },
       { status: 500 }
     );
   }
@@ -151,7 +151,7 @@ export async function DELETE(
 
     if (fetchError || !existing) {
       return NextResponse.json(
-        { error: 'not_found', message: 'الموقع غير موجود أو لا تملك صلاحية الوصول إليه.' },
+        { error: 'not_found', message: 'Website not found or you do not have access.' },
         { status: 404 }
       );
     }
@@ -166,7 +166,7 @@ export async function DELETE(
     if (error) {
       console.error('Failed to delete website:', error);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في حذف الموقع' },
+        { error: 'server_error', message: 'Failed to delete website' },
         { status: 500 }
       );
     }
@@ -178,7 +178,7 @@ export async function DELETE(
     }
     console.error('DELETE /api/websites/[id] error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع' },
+      { error: 'server_error', message: 'An unexpected error occurred' },
       { status: 500 }
     );
   }

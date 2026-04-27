@@ -30,7 +30,7 @@ export default function LoginForm({ refParam }: LoginFormProps): React.ReactElem
       setError(null);
       await signInWithGoogle(refParam);
     } catch {
-      setError('حدث خطأ أثناء تسجيل الدخول. يرجى المحاولة مرة أخرى.');
+      setError('An error occurred during sign in. Please try again.');
       setIsGoogleLoading(false);
     }
   }, [refParam]);
@@ -46,7 +46,7 @@ export default function LoginForm({ refParam }: LoginFormProps): React.ReactElem
         await signInWithEmail(email.trim(), refParam);
         setEmailSent(true);
       } catch {
-        setError('حدث خطأ أثناء إرسال رابط تسجيل الدخول. يرجى المحاولة مرة أخرى.');
+        setError('An error occurred sending the login link. Please try again.');
         setIsEmailLoading(false);
       }
     },
@@ -64,7 +64,7 @@ export default function LoginForm({ refParam }: LoginFormProps): React.ReactElem
           {APP_CONFIG.name}
         </h1>
         <p className="mt-2 text-sm text-text-accent">
-          أداة توليد المحتوى العربي الذكي
+          AI-Powered Arabic Content Generator
         </p>
         <p className="text-xs text-text-muted">Arabic pages. Ranked.</p>
       </div>
@@ -73,7 +73,7 @@ export default function LoginForm({ refParam }: LoginFormProps): React.ReactElem
       <div className="mb-6 flex items-center justify-center gap-2 rounded-lg bg-success/10 px-4 py-2">
         <span className="text-sm text-success">✓</span>
         <span className="text-xs font-medium text-success">
-          3 أيام تجريبية مجانية مع خطة Starter
+          3-day free trial with Starter plan
         </span>
       </div>
 
@@ -132,22 +132,22 @@ export default function LoginForm({ refParam }: LoginFormProps): React.ReactElem
             />
           </svg>
         )}
-        <span>متابعة مع Google</span>
+        <span>Continue with Google</span>
       </button>
 
       {/* Divider */}
       <div className="my-6 flex items-center gap-3">
         <div className="h-px flex-1 bg-surface-border" />
-        <span className="text-xs text-text-muted">أو</span>
+        <span className="text-xs text-text-muted">or</span>
         <div className="h-px flex-1 bg-surface-border" />
       </div>
 
       {/* Magic Link Form */}
       {emailSent ? (
         <div className="rounded-lg bg-success/10 px-4 py-6 text-center">
-          <p className="text-sm font-medium text-success">✓ تم الإرسال!</p>
+          <p className="text-sm font-medium text-success">✓ Sent!</p>
           <p className="mt-1 text-xs text-text-muted">
-            تحقق من بريدك الإلكتروني للحصول على رابط تسجيل الدخول
+            Check your email for the login link
           </p>
         </div>
       ) : (
@@ -157,7 +157,7 @@ export default function LoginForm({ refParam }: LoginFormProps): React.ReactElem
               htmlFor="login-email"
               className="mb-1.5 block text-xs font-medium text-text-muted"
             >
-              البريد الإلكتروني
+              Email
             </label>
             <input
               id="login-email"
@@ -165,10 +165,9 @@ export default function LoginForm({ refParam }: LoginFormProps): React.ReactElem
               inputMode="email"
               value={email}
               onChange={(e): void => setEmail(e.target.value)}
-              placeholder="أدخل بريدك الإلكتروني"
+              placeholder="Enter your email"
               required
               className="h-11 w-full rounded-xl border border-surface-border bg-surface px-4 text-base text-text-primary placeholder-text-muted/50 transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary lg:h-10 lg:text-sm"
-              dir="rtl"
             />
           </div>
 
@@ -199,7 +198,7 @@ export default function LoginForm({ refParam }: LoginFormProps): React.ReactElem
                 />
               </svg>
             ) : null}
-            <span>إرسال رابط تسجيل الدخول</span>
+            <span>Send Login Link</span>
           </button>
         </form>
       )}

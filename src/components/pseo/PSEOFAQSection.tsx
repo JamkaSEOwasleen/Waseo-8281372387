@@ -23,14 +23,13 @@ export function PSEOFAQSection({ faqs }: PSEOFAQSectionProps): ReactElement {
     <section className="border-b border-surface-border py-12 lg:py-16">
       <div className="mx-auto max-w-3xl px-4 lg:px-8">
         <h2 className="mb-8 text-xl font-bold text-text-primary lg:text-2xl">
-          الأسئلة الشائعة
+          Frequently Asked Questions
         </h2>
 
         <Accordion.Root
           type="single"
           collapsible
           className="space-y-3"
-          dir="rtl"
         >
           {faqs.map((faq: PSEOFAQ, index: number) => (
             <Accordion.Item

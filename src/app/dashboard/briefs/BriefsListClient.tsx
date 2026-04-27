@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge, IntentBadge } from '@/components/ui/Badge';
 import { SkeletonCard } from '@/components/ui/Skeleton';
-import { formatDateAr } from '@/lib/utils';
+import { formatDate } from '@/lib/utils';
 import type { Brief } from '@/types';
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -29,17 +29,17 @@ interface BriefCardProps {
 // ─── Sort Options ────────────────────────────────────────────────────────────
 
 const SORT_OPTIONS = [
-  { value: 'newest', label: 'الأحدث' },
-  { value: 'oldest', label: 'الأقدم' },
+  { value: 'newest', label: 'Newest' },
+  { value: 'oldest', label: 'Oldest' },
 ] as const;
 
 const INTENT_FILTERS = [
-  { value: '', label: 'جميع الأنواع' },
-  { value: 'informational', label: 'معلوماتي' },
-  { value: 'how-to', label: 'كيف تفعل' },
-  { value: 'commercial', label: 'تجاري' },
-  { value: 'comparison', label: 'مقارنة' },
-  { value: 'navigational', label: 'تنقلي' },
+  { value: '', label: 'All Types' },
+  { value: 'informational', label: 'Informational' },
+  { value: 'how-to', label: 'How-To' },
+  { value: 'commercial', label: 'Commercial' },
+  { value: 'comparison', label: 'Comparison' },
+  { value: 'navigational', label: 'Navigational' },
 ] as const;
 
 // ─── Brief Card ──────────────────────────────────────────────────────────────
@@ -88,16 +88,16 @@ function BriefCard({
 
           {/* Footer: date + word count */}
           <div className="mt-auto flex items-center justify-between pt-2 text-xs text-text-muted">
-            <span>{formatDateAr(brief.created_at)}</span>
+            <span>{formatDate(brief.created_at)}</span>
             <div className="flex items-center gap-3">
               {output?.fundamentals?.estimatedWordCount && (
                 <span>
-                  ~{output.fundamentals.estimatedWordCount.toLocaleString('ar-AE')}{' '}
-                  كلمة
+                  ~{output.fundamentals.estimatedWordCount.toLocaleString('en-US')}{' '}
+                  words
                 </span>
               )}
               <span className="hidden text-primary-light transition-colors group-hover:text-primary lg:inline">
-                عرض ←
+                View →
               </span>
             </div>
           </div>
@@ -196,7 +196,7 @@ export function BriefsListClient(): ReactElement {
             </svg>
             <input
               type="text"
-              placeholder="البحث عن كلمة مفتاحية..."
+              placeholder="Search by keyword..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="h-11 w-full rounded-lg border border-surface-border bg-surface-card pl-4 pr-10 text-base text-text-primary placeholder-text-muted transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary lg:h-10 lg:text-sm"
@@ -235,8 +235,8 @@ export function BriefsListClient(): ReactElement {
         {!loading && (
           <div className="text-xs text-text-muted">
             {totalCount > 0
-              ? `إجمالي ${totalCount.toLocaleString('ar-AE')} موجز`
-              : 'لا توجد موجزات'}
+              ? `${totalCount.toLocaleString('en-US')} brief total`
+              : 'No briefs found'}
           </div>
         )}
       </Card>
@@ -257,17 +257,17 @@ export function BriefsListClient(): ReactElement {
             <div className="mb-4 text-4xl">📋</div>
             <h3 className="text-lg font-semibold text-text-primary">
               {search || intent
-                ? 'لا توجد نتائج للبحث'
-                : 'لم تقم بإنشاء أي موجز بعد'}
+                ? 'No search results'
+                : 'No briefs yet'}
             </h3>
             <p className="mt-2 text-sm text-text-muted">
               {search || intent
-                ? 'حاول تغيير معايير البحث أو إزالة الفلاتر'
-                : 'ابدأ بإنشاء أول موجز محتوى محسّن لمحركات البحث باللغة العربية'}
+                ? 'Try changing your search criteria or clearing filters'
+                : 'Create your first Arabic SEO content brief to get started'}
             </p>
             <Link href="/dashboard/generate" className="mt-6">
               <Button variant="primary" size="md">
-                إنشاء موجز جديد
+                Create New Brief
               </Button>
             </Link>
           </div>
@@ -302,7 +302,7 @@ export function BriefsListClient(): ReactElement {
             disabled={page <= 1}
             onClick={() => setPage((p) => Math.max(1, p - 1))}
           >
-            السابق
+            Previous
           </Button>
 
           <div className="flex items-center gap-1">
@@ -329,7 +329,7 @@ export function BriefsListClient(): ReactElement {
                       : 'text-text-muted hover:bg-white/5 hover:text-text-primary'
                   }`}
                 >
-                  {pageNum.toLocaleString('ar-AE')}
+                  {pageNum.toLocaleString('en-US')}
                 </button>
               );
             })}
@@ -341,7 +341,7 @@ export function BriefsListClient(): ReactElement {
             disabled={page >= totalPages}
             onClick={() => setPage((p) => p + 1)}
           >
-            التالي
+            Next
           </Button>
         </div>
       )}

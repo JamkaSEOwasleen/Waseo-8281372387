@@ -46,7 +46,7 @@ export async function POST(
       return NextResponse.json(
         {
           error: 'server_error',
-          message: 'لم يتم تكوين مفتاح إعادة التحقق. يرجى ضبط PSEO_REVALIDATION_SECRET.',
+          message: 'Revalidation secret is not configured. Please set PSEO_REVALIDATION_SECRET.',
         },
         { status: 500 },
       );
@@ -56,7 +56,7 @@ export async function POST(
       return NextResponse.json(
         {
           error: 'unauthorized',
-          message: 'مفتاح إعادة التحقق غير صالح.',
+          message: 'Invalid revalidation secret.',
         },
         { status: 401 },
       );
@@ -69,7 +69,7 @@ export async function POST(
       return NextResponse.json(
         {
           error: 'validation_error',
-          message: 'حقل urlPath مطلوب ويجب أن يكون نصاً.',
+          message: 'urlPath field is required and must be a string.',
         },
         { status: 400 },
       );
@@ -104,7 +104,7 @@ export async function POST(
     return NextResponse.json(
       {
         error: 'server_error',
-        message: 'حدث خطأ أثناء إعادة التحقق من المسار.',
+        message: 'An error occurred while revalidating the path.',
       },
       { status: 500 },
     );

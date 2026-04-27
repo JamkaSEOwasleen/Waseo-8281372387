@@ -35,7 +35,7 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     if (briefError || !briefData) {
       return NextResponse.json(
-        { error: 'not_found', message: 'الموجز غير موجود أو لا تملك صلاحية الوصول إليه.' },
+        { error: 'not_found', message: 'Brief not found or you do not have access.' },
         { status: 404 }
       );
     }
@@ -45,7 +45,7 @@ export async function POST(req: Request): Promise<NextResponse> {
     // 3. Validate that output exists
     if (!brief.output) {
       return NextResponse.json(
-        { error: 'server_error', message: 'الموجز لا يحتوي على بيانات مكتملة.' },
+        { error: 'server_error', message: 'Brief does not contain complete data.' },
         { status: 400 }
       );
     }
@@ -107,13 +107,13 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
     if (err instanceof Error && err.name === 'ZodError') {
       return NextResponse.json(
-        { error: 'validation_error', message: 'بيانات غير صالحة' },
+        { error: 'validation_error', message: 'Invalid data' },
         { status: 400 }
       );
     }
     console.error('POST /api/export/pdf error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'فشل في إنشاء PDF. يرجى المحاولة مرة أخرى.' },
+      { error: 'server_error', message: 'Failed to generate PDF. Please try again.' },
       { status: 500 }
     );
   }

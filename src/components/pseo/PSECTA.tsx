@@ -50,11 +50,11 @@ export function PSECTA({ pillar, location }: PSECTAProps): ReactElement {
 
           <div className="relative z-10 flex flex-col items-center text-center">
             <h2 className="font-display text-2xl font-bold text-text-primary lg:text-3xl">
-              ابدأ مع WasafSEO
+              Start with WasafSEO
             </h2>
             <p className="mt-3 max-w-lg text-sm leading-relaxed text-text-muted lg:text-base">
-              احصل على موجز محتوى متكامل مع تحسين SEO و JSON-LD وجاهز للنشر.
-              جرب أول موجز مجاناً!
+              Get a complete content brief with SEO and JSON-LD optimization,
+              ready to publish. Try your first brief for free!
             </p>
             <div className="mt-6 flex flex-col items-center gap-3 sm:flex-row">
               <Link
@@ -68,7 +68,7 @@ export function PSECTA({ pillar, location }: PSECTAProps): ReactElement {
                   'active:scale-[0.98]',
                 )}
               >
-                احصل على موجزك المجاني
+                Get Your Free Brief
               </Link>
               <Link
                 href="/pricing"
@@ -81,7 +81,7 @@ export function PSECTA({ pillar, location }: PSECTAProps): ReactElement {
                   'active:scale-[0.98]',
                 )}
               >
-                تعرف أكثر
+                Learn More
               </Link>
             </div>
           </div>

@@ -79,7 +79,7 @@ export default async function SingleBriefPage({
           >
             <path d="M15 18l-6-6 6-6" />
           </svg>
-          العودة إلى الموجزات
+          Back to Briefs
         </Link>
       </div>
 
@@ -140,7 +140,7 @@ export async function generateMetadata({
     if (data) {
       return {
         title: `${data.keyword} - WasafSEO`,
-        description: `موجز محتوى لكلمة "${data.keyword}"`,
+        description: `Content brief for keyword "${data.keyword}"`,
       };
     }
   } catch {
@@ -148,7 +148,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: 'الموجز - WasafSEO',
-    description: 'عرض موجز المحتوى',
+    title: 'Brief - WasafSEO',
+    description: 'View content brief',
   };
 }

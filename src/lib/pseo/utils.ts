@@ -83,7 +83,7 @@ export function calculateQualityScore(
   // CTA presence: up to 15 points
   const contentStr = JSON.stringify(page.content_json ?? {});
   const hasCTA =
-    /(WasafSEO|ابدأ|جرب|سجل|اشترك|انضم)/i.test(contentStr);
+    /(WasafSEO|Start|Try|Sign|Subscribe|Join)/i.test(contentStr);
   if (hasCTA) {
     score += 15;
   }
@@ -265,28 +265,27 @@ export function chunkArray<T>(array: T[], size: number): T[][] {
  */
 export function getPillarFromSlug(slug: string): {
   slug: string;
-  nameAr: string;
   nameEn: string;
 } {
-  const pillarMap: Record<string, { nameAr: string; nameEn: string }> = {
-    'content-writing': { nameAr: 'كتابة المحتوى', nameEn: 'Content Writing' },
-    'seo-services': { nameAr: 'تحسين محركات البحث', nameEn: 'SEO Services' },
-    'geo-aio': { nameAr: 'تحسين البحث الذكي', nameEn: 'GEO/AIO' },
-    'jsonld-schema': { nameAr: 'شيفرة Schema', nameEn: 'JSON-LD Schema' },
-    'content-marketing': { nameAr: 'التسويق بالمحتوى', nameEn: 'Content Marketing' },
-    'keyword-research': { nameAr: 'تحليل الكلمات المفتاحية', nameEn: 'Keyword Research' },
-    'ecommerce-seo': { nameAr: 'تحسين المتاجر الإلكترونية', nameEn: 'E-commerce SEO' },
-    'content-strategy': { nameAr: 'استراتيجية المحتوى', nameEn: 'Content Strategy' },
-    'seo-tools': { nameAr: 'أدوات السيو', nameEn: 'SEO Tools' },
-    'article-writing': { nameAr: 'كتابة المقالات', nameEn: 'Article Writing' },
+  const pillarMap: Record<string, { nameEn: string }> = {
+    'content-writing': { nameEn: 'Content Writing' },
+    'seo-services': { nameEn: 'SEO Services' },
+    'geo-aio': { nameEn: 'GEO/AIO' },
+    'jsonld-schema': { nameEn: 'JSON-LD Schema' },
+    'content-marketing': { nameEn: 'Content Marketing' },
+    'keyword-research': { nameEn: 'Keyword Research' },
+    'ecommerce-seo': { nameEn: 'E-commerce SEO' },
+    'content-strategy': { nameEn: 'Content Strategy' },
+    'seo-tools': { nameEn: 'SEO Tools' },
+    'article-writing': { nameEn: 'Article Writing' },
   };
 
   const entry = pillarMap[slug];
   if (entry) {
-    return { slug, ...entry };
+    return { slug, nameEn: entry.nameEn };
   }
 
-  return { slug, nameAr: slug, nameEn: slug };
+  return { slug, nameEn: slug };
 }
 
 /**

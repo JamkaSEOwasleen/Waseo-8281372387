@@ -12,10 +12,10 @@ export interface PSEOInternalLinksProps {
 // ─── Type → Badge Variant Map ─────────────────────────────────────────────────
 
 const TYPE_BADGE: Record<string, { label: string; variant: 'primary' | 'success' | 'info' | 'warning' }> = {
-  hub: { label: 'مركز رئيسي', variant: 'primary' },
-  spoke: { label: 'فرعي', variant: 'success' },
-  related: { label: 'ذات صلة', variant: 'info' },
-  nearby: { label: 'قريب', variant: 'warning' },
+  hub: { label: 'Hub', variant: 'primary' },
+  spoke: { label: 'Spoke', variant: 'success' },
+  related: { label: 'Related', variant: 'info' },
+  nearby: { label: 'Nearby', variant: 'warning' },
 };
 
 // ─── Component ─────────────────────────────────────────────────────────────────
@@ -31,7 +31,7 @@ export function PSEOInternalLinks({
     <section className="border-b border-surface-border py-12 lg:py-16">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         <h2 className="mb-8 text-xl font-bold text-text-primary lg:text-2xl">
-          اقرأ أيضاً
+          Read Also
         </h2>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

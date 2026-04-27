@@ -41,14 +41,14 @@ export function AccountClient({
       const json = await res.json();
 
       if (json.error) {
-        setSaveError(json.message || 'فشل تحديث الاسم');
+        setSaveError(json.message || 'Failed to update name');
         return;
       }
 
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 3000);
     } catch {
-      setSaveError('حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.');
+      setSaveError('An unexpected error occurred. Please try again.');
     } finally {
       setSaving(false);
     }
@@ -62,14 +62,14 @@ export function AccountClient({
           htmlFor="profile-name"
           className="text-sm font-medium text-text-primary"
         >
-          الاسم
+          Name
         </label>
         <input
           id="profile-name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="الاسم الكامل"
+          placeholder="Full name"
           className="h-11 w-full rounded-lg border border-surface-border bg-surface-card px-4 text-base text-text-primary placeholder-text-muted transition-colors focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary lg:h-10 lg:text-sm"
           inputMode="text"
         />
@@ -78,13 +78,13 @@ export function AccountClient({
       {/* Email (read-only) */}
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium text-text-muted">
-          البريد الإلكتروني
+          Email
         </label>
         <div className="h-11 flex items-center rounded-lg border border-surface-border bg-white/5 px-4 text-base text-text-muted lg:h-10 lg:text-sm">
           {_email}
         </div>
         <p className="text-xs text-text-muted">
-          البريد الإلكتروني مرتبط بحسابك ولا يمكن تغييره
+          Email is linked to your account and cannot be changed
         </p>
       </div>
 
@@ -97,11 +97,11 @@ export function AccountClient({
           onClick={handleSaveName}
           disabled={name === (initialName ?? '') || !name.trim()}
         >
-          حفظ التغييرات
+          Save Changes
         </Button>
 
         {saveSuccess && (
-          <span className="text-sm text-success">تم الحفظ بنجاح ✓</span>
+          <span className="text-sm text-success">Saved successfully ✓</span>
         )}
 
         {saveError && (

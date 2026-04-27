@@ -59,7 +59,7 @@ export async function GET(req: Request): Promise<NextResponse> {
     if (error) {
       console.error('Failed to fetch briefs:', error);
       return NextResponse.json(
-        { error: 'server_error', message: 'فشل في جلب الموجزات' },
+        { error: 'server_error', message: 'Failed to fetch briefs' },
         { status: 500 }
       );
     }
@@ -99,7 +99,7 @@ export async function GET(req: Request): Promise<NextResponse> {
     }
     console.error('GET /api/briefs error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'حدث خطأ غير متوقع' },
+      { error: 'server_error', message: 'An unexpected error occurred' },
       { status: 500 }
     );
   }

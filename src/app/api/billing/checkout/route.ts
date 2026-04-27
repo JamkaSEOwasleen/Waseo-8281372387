@@ -36,13 +36,13 @@ export async function POST(req: Request): Promise<NextResponse> {
     }
     if (err instanceof Error && err.name === 'ZodError') {
       return NextResponse.json(
-        { error: 'validation_error', message: 'بيانات غير صالحة' },
+        { error: 'validation_error', message: 'Invalid data' },
         { status: 400 }
       );
     }
     console.error('POST /api/billing/checkout error:', err);
     return NextResponse.json(
-      { error: 'server_error', message: 'فشل في إنشاء رابط الدفع' },
+      { error: 'server_error', message: 'Failed to create checkout link' },
       { status: 500 }
     );
   }

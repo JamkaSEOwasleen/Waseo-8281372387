@@ -64,14 +64,14 @@ export default function UpgradeGate({
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message ?? 'فشلت عملية الترقية');
+        throw new Error(result.message ?? 'Upgrade failed');
       }
 
       if (result.data?.url) {
         window.location.href = result.data.url;
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'حدث خطأ غير متوقع');
+      setError(err instanceof Error ? err.message : 'An unexpected error occurred');
       setIsLoading(false);
     }
   }, [requiredPlan]);

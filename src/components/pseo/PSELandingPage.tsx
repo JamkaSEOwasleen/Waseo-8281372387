@@ -32,8 +32,8 @@ export function PSELandingPage({
       <PSEONavbar pillar={pillar} />
 
       <motion.article
-        dir="rtl"
-        lang="ar"
+        dir="ltr"
+        lang="en"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}

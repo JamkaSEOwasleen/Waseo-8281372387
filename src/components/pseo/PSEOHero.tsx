@@ -36,7 +36,7 @@ export function PSEOHero({
   pillar,
   location,
 }: PSEOHeroProps): React.ReactElement {
-  const { nameAr: pillarNameAr } = getPillarFromSlug(pillar);
+  const { nameEn: pillarName } = getPillarFromSlug(pillar);
 
   const sectionCount: number = page.sections?.length ?? 0;
   const faqCount: number = page.faqs?.length ?? 0;
@@ -44,10 +44,10 @@ export function PSEOHero({
   const wordEstimate: number = page.word_count ?? 0;
 
   const stats = [
-    { label: 'الكلمات', value: `${wordEstimate.toLocaleString('ar-AE')}+` },
-    { label: 'الأقسام', value: `${sectionCount}` },
-    { label: 'الأسئلة', value: `${faqCount}` },
-    { label: 'إحصائيات محلية', value: `${statsCount}` },
+    { label: 'Words', value: `${wordEstimate.toLocaleString('en-US')}+` },
+    { label: 'Sections', value: `${sectionCount}` },
+    { label: 'FAQs', value: `${faqCount}` },
+    { label: 'Local Stats', value: `${statsCount}` },
   ];
 
   return (
@@ -67,14 +67,14 @@ export function PSEOHero({
             'active:scale-[0.98]',
           )}
         >
-          احصل على موجزك المجاني
+          Get Your Free Brief
         </a>
       </div>
 
       <div className="mx-auto max-w-7xl px-4 pb-20 pt-12 lg:px-8 lg:pb-24 lg:pt-16">
         {/* Breadcrumb */}
         <div className="mb-4 flex items-center gap-2 text-xs text-text-muted">
-          <span>{pillarNameAr}</span>
+          <span>{pillarName}</span>
           <span aria-hidden="true">/</span>
           <span className="text-text-primary font-medium">{page.h1_ar}</span>
         </div>

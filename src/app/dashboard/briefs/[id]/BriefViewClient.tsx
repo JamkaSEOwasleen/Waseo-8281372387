@@ -43,7 +43,7 @@ export function BriefViewClient({
       const json = await res.json();
 
       if (json.error) {
-        setDeleteError(json.message || 'فشل في حذف الموجز');
+        setDeleteError(json.message || 'Failed to delete brief');
         setDeleting(false);
         return;
       }
@@ -51,7 +51,7 @@ export function BriefViewClient({
       // Success — navigate back to briefs list
       router.push('/dashboard/briefs');
     } catch {
-      setDeleteError('حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.');
+      setDeleteError('An unexpected error occurred. Please try again.');
       setDeleting(false);
     }
   }, [briefId, router]);
@@ -66,13 +66,13 @@ export function BriefViewClient({
       <Card padding="sm">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div className="text-sm text-text-muted">
-            <span>هل تريد إنشاء موجز مشابه أو حذف هذا الموجز؟</span>
+            <span>Want to create a similar brief or delete this one?</span>
           </div>
           <div className="flex flex-col gap-2 lg:flex-row">
             {/* Generate Similar */}
             <Link href={`/dashboard/generate?keyword=${encodeURIComponent(keyword)}`}>
               <Button variant="secondary" size="sm" fullWidth>
-                إنشاء موجز مشابه
+                Create Similar Brief
               </Button>
             </Link>
 
@@ -84,7 +84,7 @@ export function BriefViewClient({
                 fullWidth
                 onClick={() => setShowDeleteConfirm(true)}
               >
-                حذف الموجز
+                Delete Brief
               </Button>
             ) : (
               <div className="flex items-center gap-2">
@@ -96,7 +96,7 @@ export function BriefViewClient({
                     setDeleteError(null);
                   }}
                 >
-                  إلغاء
+                  Cancel
                 </Button>
                 <Button
                   variant="danger"
@@ -104,7 +104,7 @@ export function BriefViewClient({
                   isLoading={deleting}
                   onClick={handleDelete}
                 >
-                  تأكيد الحذف
+                  Confirm Delete
                 </Button>
               </div>
             )}

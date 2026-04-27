@@ -10,7 +10,7 @@ import type { SessionUser, PlanType } from '@/types';
 // ─── Plan Badge Config ───────────────────────────────────────────────────────
 
 const PLAN_BADGE: Record<PlanType, { label: string; className: string }> = {
-  none: { label: 'بدون خطة', className: 'bg-gray-500/20 text-gray-400' },
+  none: { label: 'No Plan', className: 'bg-gray-500/20 text-gray-400' },
   starter: { label: 'Starter', className: 'bg-blue-500/20 text-blue-400' },
   pro: { label: 'Pro', className: 'bg-violet-500/20 text-violet-400' },
   agency: { label: 'Agency', className: 'bg-amber-500/20 text-amber-400' },
@@ -41,7 +41,7 @@ export default function UserMenu({ user }: UserMenuProps): React.ReactElement {
         <button
           type="button"
           className="flex h-11 w-11 items-center justify-center rounded-full bg-primary/20 text-sm font-semibold text-text-primary transition-all hover:bg-primary/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface-card active:scale-95 lg:h-10 lg:w-10"
-          aria-label="قائمة المستخدم"
+          aria-label="User menu"
         >
           {user.image ? (
             <img
@@ -65,7 +65,7 @@ export default function UserMenu({ user }: UserMenuProps): React.ReactElement {
           {/* User Info Header */}
           <div className="px-3 py-2">
             <p className="truncate text-sm font-medium text-text-primary">
-              {user.name ?? 'مستخدم'}
+              {user.name ?? 'User'}
             </p>
             <p className="truncate text-xs text-text-muted">{user.email}</p>
             <div className="mt-1.5">
@@ -86,7 +86,7 @@ export default function UserMenu({ user }: UserMenuProps): React.ReactElement {
               className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-text-primary transition-colors hover:bg-primary/10 focus:bg-primary/10 focus:outline-none"
             >
               <LayoutDashboard size={16} className="shrink-0 text-text-muted" />
-              <span>لوحة التحكم</span>
+              <span>Dashboard</span>
             </a>
           </DropdownMenu.Item>
 
@@ -97,7 +97,7 @@ export default function UserMenu({ user }: UserMenuProps): React.ReactElement {
               className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-text-primary transition-colors hover:bg-primary/10 focus:bg-primary/10 focus:outline-none"
             >
               <CreditCard size={16} className="shrink-0 text-text-muted" />
-              <span>الحساب والفواتير</span>
+              <span>Account & Billing</span>
             </a>
           </DropdownMenu.Item>
 
@@ -111,7 +111,7 @@ export default function UserMenu({ user }: UserMenuProps): React.ReactElement {
               className="flex w-full cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-error transition-colors hover:bg-error/10 focus:bg-error/10 focus:outline-none"
             >
               <LogOut size={16} className="shrink-0" />
-              <span>تسجيل الخروج</span>
+              <span>Sign Out</span>
             </button>
           </DropdownMenu.Item>
 
