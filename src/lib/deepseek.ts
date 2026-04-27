@@ -12,10 +12,10 @@ import type { BriefOutput, SchemaOutput, Website } from '@/types';
 const DEEPSEEK_CONFIG = {
   model: 'deepseek-chat' as const,
   endpoint: 'https://api.deepseek.com/v1/chat/completions',
-  maxRetries: 2,
+  maxRetries: 1,
   retryDelayMs: 1000,
-  /** Per-fetch timeout in ms — prevents hanging when Deepseek is overloaded */
-  fetchTimeoutMs: 25000,
+  /** Per-fetch timeout in ms — fits within Vercel Hobby plan 60s limit */
+  fetchTimeoutMs: 18000,
 } as const;
 
 /**
